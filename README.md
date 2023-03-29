@@ -14,4 +14,12 @@ Minuto de Dios University Corporation, 2023
 -   [ ] Define stack
 -   [ ] Model data
 -   [ ] Design app architecture
--   [ ] Develop demo
+-   [ ] Design tests
+-	[ ] Develop local demo
+-	[ ] Test local demo
+-   [ ] Deploy demo
+-	[ ] Test deployed demo
+
+# To be continued
+
+Constant updates on the app's development progress should be added here
