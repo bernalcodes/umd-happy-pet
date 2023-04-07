@@ -1,8 +1,11 @@
+import LayoutHome from '@/components/Layout/LayoutHome'
 import React from 'react'
 
 const index = () => {
   return (
-    <div>About page</div>
+    <LayoutHome>
+      <div>About page</div>
+    </LayoutHome>
   )
 }
 
