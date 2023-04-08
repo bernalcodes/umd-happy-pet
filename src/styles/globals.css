@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.input-style{
+    @apply border-2 text-sm lg:text-base rounded-2xl border-solid border-happy-grey p-3 flex-grow lg:flex-grow-0 outline-none hover:border-happy-color-primary focus:border-happy-color-primary
+}
+
+.toggle-type-user{
+    @apply absolute h-full bg-happy-color-primary rounded-2xl p-[0.625rem] w-full top-0 right-0
+}
