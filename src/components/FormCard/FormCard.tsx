@@ -1,67 +1,33 @@
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { SubmitHandler, useForm } from "react-hook-form";
-import Form from "@/interfaces/Form";
-
-const typeUsers: string[] = ["I'm Customer", "I'm a Veterinarian"];
+import { useSignUpForm } from "@/hooks/useSignUpForm";
+import FormErrorText from "../FormErrorText/FormErrorText";
 
 const FormCard = () => {
-	const [typeUserSelected, setTypeUserSelected] = useState(typeUsers[0]);
-	const [additionalField, setAdditionalField] = useState<string>("");
-	const [form, setForm] = useState<Form>({
-		name: "",
-		lastName: "",
-		email: "",
-		phoneNumber: 0,
-		typeUser: "",
-	});
+	
 	const {
-		register,
-		handleSubmit,
-		formState: { errors },
-		reset,
-	} = useForm<Form>();
-
-	const selectTypeUser = (event: React.MouseEvent<HTMLLIElement>) => {
-		const index = typeUsers.findIndex(
-			(type) => type === event.currentTarget.textContent
-		);
-		setTypeUserSelected(typeUsers[index]);
-	};
-
-	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		const { name, value } = event.target;
-		setForm((prevState) => ({
-			...prevState,
-			[name]: value,
-			[additionalField]: name === "typeUser" ? "" : value,
-		}));
-	};
-
-	const onSubmit: SubmitHandler<Form> = (data: Form) => {
-		if(typeUserSelected === typeUsers[0]){
-			delete data.cardNumber
-		} else {
-			delete data.address
-		}
-		console.log(data);
-	}
-
-	useEffect(() => {
-		setForm((prevState) => ({
-			...prevState,
-			typeUser: typeUserSelected,
-		}));
-		if (typeUserSelected === "I'm Customer") {
-			setAdditionalField("address");
-		} else {
-			setAdditionalField("cardNumber");
-		}
-	}, [typeUserSelected]);
+        state: {
+            typeUserSelected,
+			typeUsers,
+            form,
+        },
+        methods: {
+            handleInputChange,
+            selectTypeUser,
+        },
+        hookForm: {
+            handleSubmit,
+            onSubmit,
+            register,
+            errors
+        }
+	} = useSignUpForm();
 
 	return (
-		<form onSubmit={handleSubmit(onSubmit)} className="flex flex-col justify-center items-center px-5 pb-12 gap-3">
+		<form
+			onSubmit={handleSubmit(onSubmit)}
+			className="flex flex-col justify-center items-center px-5 pb-12 gap-3"
+		>
 			<div className="flex flex-col gap-[20px] w-full">
 				<h2 className="text-3xl lg:text-4xl font-semibold text-happy-color-text">
 					Sign Up
@@ -73,31 +39,55 @@ const FormCard = () => {
 			<div className="flex flex-col items-center gap-[2.375rem]">
 				<div className="flex flex-col items-start gap-[0.75rem]  lg:gap-[1.3125rem]">
 					<div className="flex flex-row items-start gap-[0.75rem] flex-wrap lg:flex-nowrap">
-						<input
-							className="input-style"
-							placeholder="First name"
-							{...register("name", { required: true })}
-							onChange={handleInputChange}
-						/>
-						<input
-							className="input-style"
-							placeholder="Last name"
-							{...register("lastName", { required: true })}
-							onChange={handleInputChange}
-						/>
+						<div className="flex flex-col gap-1 flex-grow">
+							<input
+								className={`input-style ${errors.name ? "border-[#ff9494]" : "border-happy-grey"}`}
+								placeholder="First name"
+								{...register("name", {
+									required: true,
+									pattern: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/,
+								})}
+								onChange={handleInputChange}
+							/>
+							{errors.name?.type === "required" && <FormErrorText message="The field First name is required"/> }
+						</div>
+						<div className="flex flex-col gap-1 flex-grow">
+							<input
+								className={`input-style ${errors.lastName ? "border-[#ff9494]" : "border-happy-grey"}`}
+								placeholder="Last name"
+								{...register("lastName", {
+									required: true,
+									pattern: /^[A-Za-zÑñÁáÉéÍíÓóÚúÜü\s]+$/,
+								})}
+								onChange={handleInputChange}
+							/>
+							{errors.lastName?.type === "required" && <FormErrorText message="The field Last name is required"/> }
+						</div>
 					</div>
-					<input
-						className="input-style w-full"
-						placeholder="Email"
-						{...register("email", { required: true })}
-						onChange={handleInputChange}
-					/>
-					<input
-						className="input-style w-full"
-						placeholder="Phone number"
-						{...register("phoneNumber", { required: true })}
-						onChange={handleInputChange}
-					/>
+					<div className="flex flex-col gap-1 w-full">
+						<input
+							className={`input-style w-full ${errors.email ? "border-[#ff9494]" : "border-happy-grey"}`}
+							placeholder="Email"
+							{...register("email", {
+								required: true,
+								pattern: /^(\w+[/./-]?){1,}@[a-z]+[/.]\w{2,}$/,
+							})}
+							onChange={handleInputChange}
+						/>
+						{errors.email?.type === "required" && <FormErrorText message="The field Email is required"/> }
+					</div>
+					<div className="flex flex-col gap-1 w-full">
+						<input
+							className={`input-style w-full ${errors.phoneNumber ? "border-[#ff9494]" : "border-happy-grey"}`}
+							placeholder="Phone number"
+							{...register("phoneNumber", {
+								required: true,
+								pattern: /^[0-9]+$/,
+							})}
+							onChange={handleInputChange}
+						/>
+						{errors.phoneNumber?.type === "required" && <FormErrorText message={`The field Phone number is required`}/> }
+					</div>
 				</div>
 				<div className="flex flex-col items-start gap-6  lg:gap-[2.375rem] w-full">
 					<div className="flex flex-col gap-4 w-full">
@@ -186,27 +176,31 @@ const FormCard = () => {
 								)}
 							</div>
 						</label>
-						<input
-							id="input-address"
-							className="input-style w-full"
-							placeholder={
-								typeUserSelected === typeUsers[0]
-									? "Enter your Adress"
-									: "Enter your proffessional card number"
-							}
-							type={
-								typeUserSelected === typeUsers[0]
-									? "text"
-									: "number"
-							}	
-							{...register(
-								typeUserSelected === typeUsers[0]
-									? "address"
-									: "cardNumber",
-								{ required: true }
-							)}
-							onChange={handleInputChange}
-						/>
+						<div className="flex flex-col gap-1 w-full">
+							<input
+								id="input-address"
+								className={`input-style w-full ${errors.address ? "border-[#ff9494]" : "border-happy-grey"}`}
+								placeholder={
+									typeUserSelected === typeUsers[0]
+										? "Enter your Adress"
+										: "Enter your proffessional card number"
+								}
+								{...register(
+									typeUserSelected === typeUsers[0]
+										? "address"
+										: "cardNumber",
+									{
+										required: true,
+										pattern:
+											typeUserSelected === typeUsers[0]
+												? /^[a-zA-Z0-9\s\.\#\-]+$/
+												: /^[0-9]+$/,
+									}
+								)}
+								onChange={handleInputChange}
+							/>
+							{errors.address?.type === "required" && <FormErrorText message={`The field ${typeUserSelected === typeUsers[0] ? "address" : "card number"} is required`}/> }
+						</div>
 					</div>
 				</div>
 				<div className="w-full flex flex-col gap-4 items-center">
