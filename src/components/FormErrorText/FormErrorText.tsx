@@ -1,7 +1,7 @@
 import React from "react";
 import { motion } from 'framer-motion'
 
-const FormErrorText = ({ message }: { message: string }) => {
+const FormErrorText = ({ message }: { message: string | undefined }) => {
 	return (
 		<motion.p
 			initial={{ opacity: 0, top: 20}}

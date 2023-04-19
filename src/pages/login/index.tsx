@@ -1,7 +1,12 @@
-import React from "react";
+import FormCardLogIn from "@/components/FormCardLogIn/FormCardLogIn";
+import LayoutAuth from "@/components/Layout/LayoutAuth";
 
 const index = () => {
-	return <h1>Login Page</h1>;
+	return (
+		<LayoutAuth isLogin>
+			<FormCardLogIn />
+		</LayoutAuth>
+	);
 };
 
 export default index;
