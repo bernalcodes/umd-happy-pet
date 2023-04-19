@@ -27,7 +27,8 @@ module.exports = {
 				"happy-grey-blue": "#EEF1FB",
 			},
 			backgroundImage: {
-				"hero-signup": "url(/signup-img.jpg)"
+				"hero-signup": "url(/signup-img.jpg)",
+				"hero-login": "url(/login-img.jpg)"
 			}
 		},
 	},

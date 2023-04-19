@@ -3,6 +3,7 @@ export default interface Form {
 	lastName: string;
 	email: string;
 	phoneNumber: number;
+	password: string;
 	typeUser: string;
 	address?: string;
 	cardNumber?: string;

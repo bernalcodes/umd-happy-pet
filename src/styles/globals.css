@@ -9,3 +9,7 @@
 .toggle-type-user{
     @apply absolute h-full bg-happy-color-primary rounded-2xl p-[0.625rem] w-full top-0 right-0
 }
+
+.button-style-primary{
+    @apply border-2 border-solid border-transparent bg-happy-color-primary outline-none text-center cursor-pointer text-happy-color-text hover:bg-[#8a52ff] transition-colors text-white px-5 py-[10px] rounded-2xl font-semibold
+}
