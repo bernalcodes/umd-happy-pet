@@ -1,7 +1,7 @@
 import FormErrorText from "@/components/FormErrorText/FormErrorText";
 import { useSignUpForm } from "@/hooks/useSignUpForm";
 import Form from "@/interfaces/Form";
-import React, {MouseEventHandler} from "react";
+import React, {MouseEventHandler, useState} from "react";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 interface PropsComponent {
@@ -20,9 +20,9 @@ const Step2 = ({ register, errors, handleInputChange }: PropsComponent) => {
 	}
 
 	return (
-		<div>
+		<div className="w-full">
 			<div className="flex flex-col gap-4 mt-5 ">
-				<p className="text-sm lg:text-base text-happy-color-text font-medium">Create a new password</p>
+				<p className="text-sm lg:text-base text-happy-color-text font-medium w-[386px]">Create a new password</p>
 				<input
 					type="password"
 					autoComplete="off"

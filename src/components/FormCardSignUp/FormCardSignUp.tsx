@@ -85,10 +85,10 @@ const FormCardSignUp = () => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="flex flex-col justify-end items-center h-full px-5 py-12 w-full gap-3"
+			className="flex flex-col justify-end items-center px-5 py-12 w-full max-w-[410px] gap-3"
 		>
-			<div className="flex flex-col gap-5 lg:min-w-[470px] mt-4">
-				<Image src="/hp-logo.png" alt="happypet logo" width={1017} height={1017} className="h-auto lg:w-16 bg-cover"/>
+			<div className="flex flex-col gap-5  mt-4 w-full">
+				<Image src="/hp-logo.png" alt="happypet logo" width={1017} height={1017} className="h-auto lg:w-16 w-20 bg-cover"/>
 				<div className="flex flex-col gap-2">
 					<h2 className="text-3xl lg:text-4xl font-semibold text-happy-color-text">
 						Sign Up
@@ -99,7 +99,7 @@ const FormCardSignUp = () => {
 				</div>
 			</div>
 
-			<div className="flex flex-col justify-between h-full lg:min-w-[470px]">
+			<div className="flex flex-col justify-between min-h-[410px] w-full">
 				{step === 0 && (
 					<Step1
 						form={form}
