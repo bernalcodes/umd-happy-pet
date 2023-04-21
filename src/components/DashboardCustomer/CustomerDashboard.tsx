@@ -4,7 +4,7 @@ import CustomerAside from '../CustomerAside/CustomerAside'
 
 const CustomerDashboard = () => {
   return (
-    <div className='flex flex-row'>
+    <div className='flex flex-row bg-happy-grey-blue'>
         <CustomerAside/>
         <div className='w-full h-fit'>
           <CustomerNavbar/> 
