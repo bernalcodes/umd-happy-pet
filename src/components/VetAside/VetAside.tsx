@@ -3,9 +3,21 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 import ItemAside from "../ItemAside/ItemAside";
 
-const CustomerAside = () => {
+const VetAside = () => {
 	return (
 		<aside className="w-72 bg-white h-screen py-8 px-8 flex flex-col gap-6 shadow-md">
+			<div className="flex flex-col gap-5">
+				<div className="flex gap-2 rounded-lg bg-happy-color-primary-light px-3 py-2 items-center">
+					<div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
+						<FontAwesomeIcon icon={faPaw} className="text-xl" />
+					</div>
+					<div className="flex flex-col">
+						<h2 className="font-semibold">My Business</h2>
+						<p>Admin</p>
+					</div>
+				</div>
+			</div>
+
 			<div className="flex flex-col gap-3">
 				<div>
 					<h3 className="text-slate-400 mb-3 text-">ANALYTICS</h3>
@@ -18,6 +30,8 @@ const CustomerAside = () => {
 					<h3 className="text-slate-400 mb-3">BASE</h3>
 					<div className="items flex flex-col gap-3">
 						<ItemAside icon={faUserNurse} label="Profile"/>
+						<ItemAside icon={faUsers} label="Customers"/>
+						<ItemAside icon={faDog} label="Pets"/>
 					</div>
 				</div>
 				<div>
@@ -32,4 +46,4 @@ const CustomerAside = () => {
 	);
 };
 
-export default CustomerAside;
+export default VetAside;

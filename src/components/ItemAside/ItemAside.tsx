@@ -9,9 +9,9 @@ interface ItemAsideProps {
 
 const ItemAside = ({icon, label}: ItemAsideProps) => {
 	return (
-		<div className="flex items-center cursor-pointer gap-5 hover:bg-happy-color-primary hover:text-white text-happy-color-text py-3 px-4 rounded-xl transition-colors">
+		<div className="text-md flex items-center cursor-pointer gap-3	 hover:bg-happy-color-primary hover:text-white text-happy-color-text py-2 px-4 rounded-xl">
 			<FontAwesomeIcon icon={icon} className="text-[18px]" />
-			<p className="font-semibold text-lg">{label}</p>
+			<p className="font-semibold text-md">{label}</p>
 		</div>
 	);
 };

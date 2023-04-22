@@ -1,5 +1,5 @@
 import { Fragment, useState } from "react";
-import { Dialog, Disclosure, Popover, Transition } from "@headlessui/react";
+import { Dialog, Disclosure } from "@headlessui/react";
 import {
 	ArrowPathIcon,
 	Bars3Icon,
@@ -14,8 +14,7 @@ import {
 	PhoneIcon,
 	PlayCircleIcon,
 } from "@heroicons/react/20/solid";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import MenuUser from "../MenuUser/MenuUser";
 
 const products = [
 	{
@@ -64,7 +63,7 @@ export default function Example() {
 	return (
 		<header className="bg-white">
 			<nav
-				className="flex items-center justify-start items-start p-6 lg:px-8 justify-end shadow-md"
+				className="flex items-center justify-start items-start p-2 lg:px-8 justify-end shadow-md"
 				aria-label="Global"
 			>
 				{/* MENU MOBILE  */}
@@ -79,16 +78,7 @@ export default function Example() {
 					</button>
 				</div>
 				{/* SUBMENU */}
-				<div className="hidden lg:flex lg:gap-x-12">
-					<div className="flex gap-3 items-center">
-						<div className="w-10 h-10 rounded-full bg-slate-600"></div>
-						<div className="flex flex-col">
-							<p className="font-semibold">Andres Sanabria</p>
-							<span className="text-slate-400">Veterinary</span>
-						</div>
-						<FontAwesomeIcon icon={faCaretDown} />
-					</div>
-				</div>
+				<MenuUser/>
 				{/* PROFILE MENU PENDIENTE */}
 			</nav>
 			<Dialog
