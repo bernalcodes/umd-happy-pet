@@ -3,9 +3,10 @@ import { useSignUpForm } from "@/hooks/useSignUpForm";
 import { useEffect, useState } from "react";
 import Step1 from "../Steps/Step1/Step1";
 import Step2 from "../Steps/Step2/Step2";
-import { useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import Form from "@/interfaces/Form";
 import Image from "next/image";
+import { Backdrop, CircularProgress } from "@mui/material";
 
 const initialForm: Form = {
 	name: "",
@@ -34,7 +35,14 @@ const FormCardSignUp = () => {
 	// 	state: { step },
 	// } = useSignUpForm();
 
-	const onSubmit = (data: Form) => console.log(data);
+	const onSubmit: SubmitHandler<Form> = (data: Form) => {
+		if (typeUserSelected === typeUsers[0]) {
+			delete data.cardNumber;
+		} else {
+			delete data.address;
+		}
+		console.log(data);
+	};
 
 	const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
@@ -85,10 +93,16 @@ const FormCardSignUp = () => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="flex flex-col justify-end items-center h-full px-5 py-12 w-full gap-3"
+			className="flex flex-col justify-end items-center px-5 py-12 w-full max-w-[410px] gap-3"
 		>
-			<div className="flex flex-col gap-5 lg:min-w-[470px] mt-4">
-				<Image src="/hp-logo.png" alt="happypet logo" width={1017} height={1017} className="h-auto lg:w-16 bg-cover"/>
+			<div className="flex flex-col gap-5  mt-4 w-full">
+				<Image
+					src="/hp-logo.png"
+					alt="happypet logo"
+					width={1017}
+					height={1017}
+					className="h-auto lg:w-16 w-20 bg-cover"
+				/>
 				<div className="flex flex-col gap-2">
 					<h2 className="text-3xl lg:text-4xl font-semibold text-happy-color-text">
 						Sign Up
@@ -99,7 +113,7 @@ const FormCardSignUp = () => {
 				</div>
 			</div>
 
-			<div className="flex flex-col justify-between h-full lg:min-w-[470px]">
+			<div className="flex flex-col justify-between min-h-[410px] w-full">
 				{step === 0 && (
 					<Step1
 						form={form}
@@ -131,7 +145,7 @@ const FormCardSignUp = () => {
 					)}
 					{step === 1 && (
 						<>
-							<button 
+							<button
 								onClick={prevStep}
 								className="transition-all border-2 border-solid border-transparent hover:text-[#8a52ff]  hover:border-happy-color-primary  outline-none text-center cursor-pointer text-happy-color-primary transition-colors px-5 py-3 rounded-2xl font-semibold"
 							>

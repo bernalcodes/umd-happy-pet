@@ -34,14 +34,14 @@ const Step1 = ({
 }: ComponentProps) => {
 	return (
 		<div className="flex flex-col items-center gap-5">
-			<div className="flex flex-col items-start gap-[0.75rem]  lg:gap-[1.3125rem]">
-				<div className="flex flex-row items-start gap-[0.75rem]">
-					<div className="flex flex-col gap-1 flex-grow ">
+			<div className="flex flex-col items-start gap-[0.75rem]  lg:gap-[1.3125rem] w-full">
+				<div className="flex flex-row items-start gap-[0.75rem] w-full">
+					<div className="flex flex-col gap-1 flex-grow w-1/2 ">
 						<input
-							className={`input-style w-auto ${
+							className={`input-style w-full ${
 								errors.name
 									? "border-[#ff9494]"
-									: "border-happy-grey"
+									: ""
 							}`}
 							placeholder="First name"
 							{...register("name", {
@@ -60,12 +60,12 @@ const Step1 = ({
 							<FormErrorText message={errors.name.message} />
 						)}
 					</div>
-					<div className="flex flex-col gap-1 flex-grow">
+					<div className="flex flex-col gap-1 flex-grow w-1/2">
 						<input
-							className={`input-style w-auto ${
+							className={`input-style w-full ${
 								errors.lastName
 									? "border-[#ff9494]"
-									: "border-happy-grey"
+									: ""
 							}`}
 							placeholder="Last name"
 							{...register("lastName", {
@@ -90,7 +90,7 @@ const Step1 = ({
 						className={`input-style w-full ${
 							errors.email
 								? "border-[#ff9494]"
-								: "border-happy-grey"
+								: ""
 						}`}
 						placeholder="Email"
 						{...register("email", {
@@ -116,7 +116,7 @@ const Step1 = ({
 						className={`input-style w-full ${
 							errors.phoneNumber
 								? "border-[#ff9494]"
-								: "border-happy-grey"
+								: ""
 						}`}
 						placeholder="Phone number"
 						{...register("phoneNumber", {
@@ -222,7 +222,7 @@ const Step1 = ({
 							<>
 								<input
 									id="input-address"
-									className={`input-style w-full ${errors.address ? 'border-[#ff9494]' : 'border-happy-grey'}`}
+									className={`input-style w-full ${errors.address ? 'border-[#ff9494]' : ''}`}
 									placeholder="Enter your Address"
 									{...register("address", {
 										required: {
@@ -246,13 +246,13 @@ const Step1 = ({
 						{typeUserSelected === typeUsers[1] && (
 							<>
 								<input
-									className={`input-style w-full ${errors.cardNumber ? 'border-[#ff9494]' : 'border-happy-grey'}`}
+									className={`input-style w-full ${errors.cardNumber ? 'border-[#ff9494]' : ''}`}
 									placeholder="Enter your card number"
 									{...register("cardNumber", {
 										required: {
 											value: true,
 											message: "Card number is required",
-										},
+										},	
 									})}
 									onChange={handleAditionalFieldChange}
 								/>

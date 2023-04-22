@@ -1,11 +1,12 @@
 import React from 'react'
 import CustomerNavbar from '../CustomerNavbar/CustomerNavbar'
 import CustomerAside from '../CustomerAside/CustomerAside'
+import VetAside from '../VetAside/VetAside'
 
-const CustomerDashboard = () => {
+const VetDashboard = () => {
   return (
     <div className='flex flex-row bg-happy-grey-blue'>
-        <CustomerAside/>
+        <VetAside/>
         <div className='w-full h-fit'>
           <CustomerNavbar/> 
         </div>
@@ -13,4 +14,4 @@ const CustomerDashboard = () => {
   )
 }
 
-export default CustomerDashboard
+export default VetDashboard
