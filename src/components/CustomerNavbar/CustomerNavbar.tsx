@@ -10,11 +10,14 @@ import {
 	XMarkIcon,
 } from "@heroicons/react/24/outline";
 import {
+	Bars2Icon,
 	ChevronDownIcon,
 	PhoneIcon,
 	PlayCircleIcon,
 } from "@heroicons/react/20/solid";
 import MenuUser from "../MenuUser/MenuUser";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faAngleLeft, faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 
 const products = [
 	{
@@ -57,13 +60,13 @@ function classNames(...classes: any[]) {
 	return classes.filter(Boolean).join(" ");
 }
 
-export default function Example() {
+export default function Example({ openMenu }: { openMenu: () => void }) {
 	const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
 	return (
 		<header className="bg-white">
 			<nav
-				className="flex items-center justify-start items-start p-2 lg:px-8 justify-end shadow-md"
+				className="flex items-center justify-start items-start px-2 py-5 lg:px-8 justify-end shadow-md"
 				aria-label="Global"
 			>
 				{/* MENU MOBILE  */}
@@ -78,7 +81,10 @@ export default function Example() {
 					</button>
 				</div>
 				{/* SUBMENU */}
-				<MenuUser/>
+				<MenuUser />
+				<button onClick={openMenu} className="p-2 hover:bg-gray-100 cursor-pointer rounded-xl w-10 h-10">
+					<FontAwesomeIcon icon={faAnglesLeft} className=" text-gray-600"/>
+				</button>
 				{/* PROFILE MENU PENDIENTE */}
 			</nav>
 			<Dialog

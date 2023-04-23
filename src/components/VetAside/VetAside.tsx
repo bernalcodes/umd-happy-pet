@@ -7,12 +7,12 @@ const VetAside = () => {
 	return (
 		<aside className="w-72 bg-white h-screen py-8 px-8 flex flex-col gap-6 shadow-md">
 			<div className="flex flex-col gap-5">
-				<div className="flex gap-2 rounded-lg bg-happy-color-primary-light px-3 py-2 items-center">
-					<div className="w-12 h-12 rounded-full bg-white flex items-center justify-center">
+				<div className="flex gap-2 rounded-xl bg-happy-color-primary-light px-4 py-3 items-center">
+					<div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
 						<FontAwesomeIcon icon={faPaw} className="text-xl" />
 					</div>
 					<div className="flex flex-col">
-						<h2 className="font-semibold">My Business</h2>
+						<h2 className="font-semibold text-sm">My Business</h2>
 						<p>Admin</p>
 					</div>
 				</div>
@@ -20,14 +20,14 @@ const VetAside = () => {
 
 			<div className="flex flex-col gap-3">
 				<div>
-					<h3 className="text-slate-400 mb-3 text-">ANALYTICS</h3>
+					<h3 className="text-blue-gray-400 mb-3 text-">ANALYTICS</h3>
 					<div className="items flex flex-col gap-3">
 						<ItemAside icon={faPaw} label="Home"/>
 						<ItemAside icon={faChartPie} label="Reports"/>
 					</div>
 				</div>
 				<div>
-					<h3 className="text-slate-400 mb-3">BASE</h3>
+					<h3 className="text-blue-gray-400 mb-3">BASE</h3>
 					<div className="items flex flex-col gap-3">
 						<ItemAside icon={faUserNurse} label="Profile"/>
 						<ItemAside icon={faUsers} label="Customers"/>
@@ -35,7 +35,7 @@ const VetAside = () => {
 					</div>
 				</div>
 				<div>
-					<h3 className="text-slate-400 mb-3">OTHERS</h3>
+					<h3 className="text-blue-gray-400 mb-3">OTHERS</h3>
 					<div className="items flex flex-col gap-3">
 						<ItemAside icon={faCalendar} label="Calendar"/>
 						<ItemAside icon={faGear} label="Settings"/>
