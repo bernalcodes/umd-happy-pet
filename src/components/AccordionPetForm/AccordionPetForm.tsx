@@ -4,6 +4,7 @@ import {
   AccordionHeader,
   AccordionBody,
   Input,
+  Button,
 } from "@material-tailwind/react";
  
 function Icon({ id, open }: { id: number; open: number }) {
@@ -33,18 +34,20 @@ export default function AccordionPetForm({ id , handleOpen, open }: { id: number
   return (
     <Fragment>
       <Accordion open={open === id}>
-        <AccordionHeader onClick={() => handleOpen(id)}>
+        <AccordionHeader onClick={() => handleOpen(id)} className="border-none border-transparent hover:bg-blue-gray-50 rounded-xl hover:px-4 transition-all">
           Add new pet
         </AccordionHeader>
         <AccordionBody>
-        <div className='flex gap-3'>
-            <Input label='Pet'/>
-            <Input label='Breed'/>
-        </div>
-        <div className='flex gap-3'>
-            <Input label='Age'/>
-            <Input label='Weight'/>
-        </div>
+          <div className="flex flex-col gap-3">
+            <div className='flex gap-3'>
+                <Input label='Pet name'/>
+                <Input label='Age'/>
+            </div>
+            <div className='flex gap-3'>
+                <Input label='Breed'/>
+                <button className="normal-case bg-happy-color-primary whitespace-nowrap px-6 py-2 rounded-lg text-white hover:bg-happy-color-primary-light transition-colors">Add pet</button>
+            </div>
+          </div>
         </AccordionBody>
       </Accordion>
     </Fragment>
