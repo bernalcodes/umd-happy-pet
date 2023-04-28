@@ -36,15 +36,6 @@ const VetDashboard = () => {
 								>
 									<FontAwesomeIcon icon={faCirclePlus} />
 									<p className="md:text-lg text-base">
-										Add Pet
-									</p>
-								</button>
-								<button
-									onClick={openAddCustomer}
-									className="flex gap-2 items-center bg-happy-color-primary hover:bg-happy-color-primary-light py-[6px] px-4 rounded-md border border-solid border-transparent hover:border-happy-color-primary text-white transition-colors"
-								>
-									<FontAwesomeIcon icon={faCirclePlus} />
-									<p className="md:text-lg text-base">
 										Add Customer
 									</p>
 								</button>
