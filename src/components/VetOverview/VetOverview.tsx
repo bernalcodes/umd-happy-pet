@@ -18,7 +18,7 @@ const VetOrverviewItem = ({
     icon
 }: VetOrverviewItemProps) => {
 	return (
-		<div className="flex gap-3 items-center cursor-pointer group">
+		<div className=" bg-white px-6 py-5 min-w-[220px] rounded-2xl flex gap-3 items-center cursor-pointer group">
 			<FontAwesomeIcon
 				icon={icon}
 				className={`lg:p-4 p-3 rounded-2xl lg:text-2xl text-base ${bgColor} ${color}`}
@@ -64,7 +64,7 @@ const data: VetOrverviewItemProps[] = [
 
 const VetOverview = () => {
 	return (
-		<div className="bg-white flex lg:flex-row justify-around gap-5 py-8 px-8 flex-col rounded-xl flex-wrap">
+		<div className="flex lg:flex-row justify-around max-w-screen-xl m-auto gap-5 py-8 px-8 flex-col rounded-xl flex-wrap">
 			{data.map((item, index) => (
 				<VetOrverviewItem
 					key={index}

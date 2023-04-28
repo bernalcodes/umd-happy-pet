@@ -15,10 +15,10 @@ module.exports = withMT({
 	theme: {
 		extend: {
 			colors: {
-				"happy-color-primary": "#A072FF",
-				"happy-color-primary-light": "#E5D8FF",
-				"happy-color-secondary": "#36336F",
-				"happy-color-text": "#121733",
+				"happy-color-primary": "#5A56EC",
+				"happy-color-primary-light": "#4218D9",
+				"happy-color-secondary": "#7EE7F2",
+				"happy-color-text": "#0D0D0D",
 				"happy-grey": "#9E9E9E",
 				"happy-orange": "#FF8080",
 				"happy-light-orange": "#FFF6EE",
@@ -35,5 +35,13 @@ module.exports = withMT({
 				"hero-login": "url(/login-img.jpg)"
 			}
 		},
+		fontFamily: {
+			'k2d': ['K2D', 'sans-serif'],
+			'mitr': ['Mitr', 'sans-serif'],
+			'mukta': ['Mukta', 'sans-serif'],
+			'kanit': ['Kanit', 'sans-serif'],
+			'sans': ['Roboto', 'Arial', 'sans-serif']
+		}
 	},
+	plugins: [require('prettier-plugin-tailwindcss')],
 });

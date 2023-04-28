@@ -37,7 +37,7 @@ const Step2 = ({ register, errors, handleInputChange }: PropsComponent) => {
 	return (
 		<div className="w-full">
 			<div className="flex flex-col gap-4 mt-5 ">
-				<p className="text-sm lg:text-base text-happy-color-text font-medium w-[386px]">
+				<p className="text-sm lg:text-base text-happy-color-text font-light w-[386px]">
 					Create a new password
 				</p>
 				<div className="flex flex-col gap-1 w-full">

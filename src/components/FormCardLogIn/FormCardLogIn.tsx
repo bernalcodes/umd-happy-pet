@@ -26,10 +26,10 @@ const FormCardLogIn = () => {
 			className="flex flex-col justify-center items-center px-5 pb-12 gap-10"
 		>
 			<div className="flex flex-col gap-[10px] w-full justify-center">
-				<h2 className="text-3xl lg:text-4xl font-semibold text-happy-color-text text-center">
+				<h2 className="text-3xl lg:text-4xl font-medium text-happy-color-text text-center">
 					Welcome back!
 				</h2>
-				<p className="text-1xl text-sm lg:text-lg font-normal text-happy-color-text text-center">
+				<p className="text-1xl text-sm lg:text-lg font-light text-happy-color-text text-center">
 					Please enter your credentials
 				</p>
 			</div>
@@ -40,7 +40,7 @@ const FormCardLogIn = () => {
 							className={`input-style w-full ${
 								errors.email
 									? "border-[#ff9494]"
-									: "border-happy-grey"
+									: ""
 							}`}
 							placeholder="Email"
 							{...register("email", {
@@ -62,7 +62,7 @@ const FormCardLogIn = () => {
 							className={`input-style w-full ${
 								errors.password
 									? "border-[#ff9494]"
-									: "border-happy-grey"
+									: ""
 							}`}
 							placeholder="password"
 							{...register("password", {
@@ -81,13 +81,13 @@ const FormCardLogIn = () => {
 					<input
 						type="submit"
 						value="Continue"
-						className="bg-happy-color-primary outline-none text-center cursor-pointer text-happy-color-text hover:bg-[#8a52ff] transition-colors text-white p-3 w-full rounded-2xl font-semibold"
+						className="bg-happy-color-primary outline-none text-center cursor-pointer text-happy-color-text hover:bg-happy-color-primary-light transition-colors text-white p-3 w-full rounded-2xl font-semibold"
 					/>
-					<p className="text-happy-color-text text-sm lg:text-base">
+					<p className="text-happy-color-text text-sm font-light lg:text-base">
 						You do not have an account?
 						<Link
 							href="/signup"
-							className="text-happy-color-primary hover:underline ml-1"
+							className="text-happy-color-primary font-normal hover:underline ml-1"
 						>
 							Create an account
 						</Link>
