@@ -93,27 +93,27 @@ const FormCardSignUp = () => {
 	return (
 		<form
 			onSubmit={handleSubmit(onSubmit)}
-			className="flex flex-col justify-end items-center px-5 py-12 w-full max-w-[410px] gap-3"
+			className="flex w-full max-w-[410px] flex-col items-center justify-end gap-3 px-5 py-12"
 		>
-			<div className="flex flex-col gap-5  mt-4 w-full">
+			<div className="mt-4 flex w-full  flex-col gap-5">
 				<Image
 					src="/hp-logo.png"
 					alt="happypet logo"
 					width={1017}
 					height={1017}
-					className="h-auto lg:w-16 w-20 bg-cover"
+					className="h-auto w-20 bg-cover lg:w-16"
 				/>
 				<div className="flex flex-col gap-2">
-					<h2 className="text-3xl lg:text-4xl font-semibold text-happy-color-text">
+					<h2 className="text-3xl font-medium text-happy-color-text lg:text-4xl">
 						Sign Up
 					</h2>
-					<p className="text-1xl text-sm lg:text-lg font-normal text-happy-color-text">
+					<p className="text-1xl text-sm font-light text-happy-color-text lg:text-lg">
 						Create your account now
 					</p>
 				</div>
 			</div>
 
-			<div className="flex flex-col justify-between min-h-[410px] w-full">
+			<div className="flex min-h-[410px] w-full flex-col justify-between">
 				{step === 0 && (
 					<Step1
 						form={form}
@@ -133,7 +133,7 @@ const FormCardSignUp = () => {
 						errors={errors}
 					/>
 				)}
-				<div className="flex justify-end items-center gap-2 w-full items-end mt-10">
+				<div className="mt-10 flex w-full items-end items-center justify-end gap-2">
 					{step === 0 && (
 						<button
 							type="submit"
@@ -147,7 +147,7 @@ const FormCardSignUp = () => {
 						<>
 							<button
 								onClick={prevStep}
-								className="transition-all border-2 border-solid border-transparent hover:text-[#8a52ff]  hover:border-happy-color-primary  outline-none text-center cursor-pointer text-happy-color-primary transition-colors px-5 py-3 rounded-2xl font-semibold"
+								className="cursor-pointer rounded-2xl border-2 border-solid border-transparent  px-5   py-3 text-center font-light text-happy-color-primary outline-none transition-all transition-colors hover:border-happy-color-primary hover:text-[#8a52ff]"
 							>
 								Back
 							</button>
@@ -161,12 +161,12 @@ const FormCardSignUp = () => {
 				</div>
 			</div>
 
-			<div className="flex flex-col w-full">
-				<p className="text-happy-color-text text-sm text-center lg:text-base mt-10">
+			<div className="flex w-full flex-col">
+				<p className="mt-10 text-center text-sm font-light text-happy-color-text lg:text-base">
 					Already have an account?
 					<Link
 						href="/login"
-						className="text-happy-color-primary hover:underline ml-1"
+						className="ml-1 font-normal text-happy-color-primary hover:underline"
 					>
 						Log In
 					</Link>

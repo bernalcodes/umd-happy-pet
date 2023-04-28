@@ -135,7 +135,7 @@ const Step1 = ({
 			</div>
 			<div className="flex flex-col items-start gap-6  lg:gap-5 w-full">
 				<div className="flex flex-col gap-4 w-full">
-					<span className=" text-sm lg:text-base text-happy-color-text font-medium">
+					<span className=" text-sm lg:text-base text-happy-color-text font-light">
 						Select the type of user you are
 					</span>
 					<ul className="flex flex-row border-happy-color-primary border-2 rounded-2xl w-full justify-around gap-2 p-1">
@@ -149,7 +149,7 @@ const Step1 = ({
 										: "text-happy-color-text"
 								} text-sm lg:text-base relative transition-colors font-medium cursor-pointer w-full h-full p-[0.625rem] rounded-2xl text-center`}
 							>
-								<p className="relative z-20">{type}</p>
+								<p className="relative z-20 font-light">{type}</p>
 								{type === typeUserSelected && (
 									<motion.div
 										className="toggle-type-user"

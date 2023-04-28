@@ -27,6 +27,8 @@ import {
 } from "@heroicons/react/24/outline";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+import Link from "next/link";
  
 // profile menu component
 const profileMenuItems = [
@@ -39,12 +41,8 @@ const profileMenuItems = [
     icon: Cog6ToothIcon,
   },
   {
-    label: "Inbox",
+    label: "Settings",
     icon: InboxArrowDownIcon,
-  },
-  {
-    label: "Help",
-    icon: LifebuoyIcon,
   },
   {
     label: "Sign Out",
@@ -68,7 +66,7 @@ function ProfileMenu() {
             variant="circular"
             size="sm"
             alt="candice wu"
-            className="border border-blue-500 p-0.5"
+            className="border border-happy-color-primary p-0.5"
             src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1480&q=80"
           />
           <ChevronDownIcon
@@ -249,15 +247,17 @@ export default function NavbarDashboard({ openMenu }: { openMenu: () => void }) 
   }, []);
  
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6">
+    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 lg:mt-4">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
-        <Typography
-          as="a"
-          href="#"
-          className="mr-4 ml-2 cursor-pointer py-1.5 font-medium"
-        >
-          Happypet
-        </Typography>
+        <Link href="/">
+          <Image
+            src="/hp-logo.png"
+            alt="happypet logo"
+            width={1017}
+            height={1017}
+            className="h-auto lg:w-8 w-20 bg-cover"
+          />
+        </Link>
         <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
         </div>
