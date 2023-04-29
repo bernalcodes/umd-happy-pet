@@ -1,5 +1,6 @@
 interface Pet {
-  img: string;
+  id: string;
+  img?: string;
   name: string;
   age: number;
   breed: string;

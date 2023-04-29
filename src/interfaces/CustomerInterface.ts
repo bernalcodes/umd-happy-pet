@@ -6,5 +6,5 @@ interface Customer {
   address: string;
   phone?: string;
   email?: string;
-  pets: string[];
+  pets: Pet[];
 }

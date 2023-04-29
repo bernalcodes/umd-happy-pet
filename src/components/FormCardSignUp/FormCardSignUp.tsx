@@ -22,8 +22,6 @@ const initialForm: Form = {
 const typeUsers: string[] = ["I'm Customer", "I'm a Veterinarian"];
 
 const FormCardSignUp = () => {
-  //TODO: create a password input. pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[a-zA-Z]).{8,}$/
-
   const [step, setStep] = useState(0);
   const [form, setForm] = useState<Form>(initialForm);
   const [additionalField, setAdditionalField] = useState<string>("");
