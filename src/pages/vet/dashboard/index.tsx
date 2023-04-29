@@ -1,10 +1,8 @@
-import VetDashboard from '@/components/VetDashboard/VetDashboard'
-import React from 'react'
+import VetDashboard from "@/components/VetDashboard/VetDashboard";
+import React from "react";
 
 const index = () => {
-  return (
-    <VetDashboard/>
-  )
-}
+  return <VetDashboard />;
+};
 
-export default index
+export default index;

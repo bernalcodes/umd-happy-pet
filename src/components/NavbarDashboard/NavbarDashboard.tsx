@@ -29,7 +29,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAnglesLeft } from "@fortawesome/free-solid-svg-icons";
 import Image from "next/image";
 import Link from "next/link";
- 
+
 // profile menu component
 const profileMenuItems = [
   {
@@ -49,18 +49,18 @@ const profileMenuItems = [
     icon: PowerIcon,
   },
 ];
- 
+
 function ProfileMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
   const closeMenu = () => setIsMenuOpen(false);
- 
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
         <Button
           variant="text"
           color="blue-gray"
-          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+          className="flex items-center gap-1 rounded-full py-0.5 pl-0.5 pr-2 lg:ml-auto"
         >
           <Avatar
             variant="circular"
@@ -109,7 +109,7 @@ function ProfileMenu() {
     </Menu>
   );
 }
- 
+
 // nav list menu
 const navListMenuItems = [
   {
@@ -128,15 +128,15 @@ const navListMenuItems = [
       "A complete set of UI Elements for building faster websites in less time.",
   },
 ];
- 
+
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
+
   const triggers = {
     onMouseEnter: () => setIsMenuOpen(true),
     onMouseLeave: () => setIsMenuOpen(false),
   };
- 
+
   const renderItems = navListMenuItems.map(({ title, description }) => (
     <a href="#" key={title}>
       <MenuItem>
@@ -149,7 +149,7 @@ function NavListMenu() {
       </MenuItem>
     </a>
   ));
- 
+
   return (
     <React.Fragment>
       <Menu open={isMenuOpen} handler={setIsMenuOpen}>
@@ -195,7 +195,7 @@ function NavListMenu() {
     </React.Fragment>
   );
 }
- 
+
 // nav list component
 const navListItems = [
   {
@@ -211,7 +211,7 @@ const navListItems = [
     icon: CodeBracketSquareIcon,
   },
 ];
- 
+
 function NavList() {
   return (
     <ul className="mb-4 mt-2 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
@@ -234,20 +234,24 @@ function NavList() {
     </ul>
   );
 }
- 
-export default function NavbarDashboard({ openMenu }: { openMenu: () => void }) {
+
+export default function NavbarDashboard({
+  openMenu,
+}: {
+  openMenu: () => void;
+}) {
   const [isNavOpen, setIsNavOpen] = React.useState(false);
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
- 
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
       () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
- 
+
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 lg:rounded-full lg:pl-6 lg:mt-4">
+    <Navbar className="mx-auto max-w-screen-xl p-2 lg:mt-4 lg:rounded-full lg:pl-6">
       <div className="relative mx-auto flex items-center text-blue-gray-900">
         <Link href="/">
           <Image
@@ -255,10 +259,10 @@ export default function NavbarDashboard({ openMenu }: { openMenu: () => void }) 
             alt="happypet logo"
             width={1017}
             height={1017}
-            className="h-auto lg:w-8 w-20 bg-cover"
+            className="h-auto w-20 bg-cover lg:w-8"
           />
         </Link>
-        <div className="absolute top-2/4 left-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
+        <div className="absolute left-2/4 top-2/4 hidden -translate-x-2/4 -translate-y-2/4 lg:block">
           <NavList />
         </div>
         <IconButton
@@ -271,9 +275,12 @@ export default function NavbarDashboard({ openMenu }: { openMenu: () => void }) 
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
         <ProfileMenu />
-        <button onClick={openMenu} className="p-2 hover:bg-gray-100 cursor-pointer rounded-xl w-10 h-10">
-            <FontAwesomeIcon icon={faAnglesLeft} className=" text-gray-600"/>
-		</button>
+        <button
+          onClick={openMenu}
+          className="h-10 w-10 cursor-pointer rounded-xl p-2 hover:bg-gray-100"
+        >
+          <FontAwesomeIcon icon={faAnglesLeft} className=" text-gray-600" />
+        </button>
       </div>
       <MobileNav open={isNavOpen} className="overflow-scroll">
         <NavList />

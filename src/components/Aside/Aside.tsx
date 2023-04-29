@@ -1,9 +1,14 @@
-import { Fragment, useState } from 'react'
-import { Dialog, Transition } from '@headlessui/react'
-import { XMarkIcon } from '@heroicons/react/24/outline'
+import { Fragment, useState } from "react";
+import { Dialog, Transition } from "@headlessui/react";
+import { XMarkIcon } from "@heroicons/react/24/outline";
 
-export default function Aside({ open, closeMenu }: {open: boolean, closeMenu: () => void}) {
-
+export default function Aside({
+  open,
+  closeMenu,
+}: {
+  open: boolean;
+  closeMenu: () => void;
+}) {
   return (
     <Transition.Root show={open} as={Fragment}>
       <Dialog as="div" className="relative z-10" onClose={closeMenu}>
@@ -58,7 +63,9 @@ export default function Aside({ open, closeMenu }: {open: boolean, closeMenu: ()
                         Panel title
                       </Dialog.Title>
                     </div>
-                    <div className="relative mt-6 flex-1 px-4 sm:px-6">{/* Your content */}</div>
+                    <div className="relative mt-6 flex-1 px-4 sm:px-6">
+                      {/* Your content */}
+                    </div>
                   </div>
                 </Dialog.Panel>
               </Transition.Child>
@@ -67,5 +74,5 @@ export default function Aside({ open, closeMenu }: {open: boolean, closeMenu: ()
         </div>
       </Dialog>
     </Transition.Root>
-  )
+  );
 }

@@ -3,17 +3,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React from "react";
 
 interface ItemAsideProps {
-    icon: IconDefinition;
-    label: string;
+  icon: IconDefinition;
+  label: string;
 }
 
-const ItemAside = ({icon, label}: ItemAsideProps) => {
-	return (
-		<div className="text-md flex items-center cursor-pointer gap-3	 hover:bg-happy-color-primary hover:text-white text-happy-color-text py-2 px-4 rounded-xl">
-			<FontAwesomeIcon icon={icon} className="text-[18px]" />
-			<p className="font-semibold text-md">{label}</p>
-		</div>
-	);
+const ItemAside = ({ icon, label }: ItemAsideProps) => {
+  return (
+    <div className="text-md flex cursor-pointer items-center gap-3	 rounded-xl px-4 py-2 text-happy-color-text hover:bg-happy-color-primary hover:text-white">
+      <FontAwesomeIcon icon={icon} className="text-[18px]" />
+      <p className="text-md font-semibold">{label}</p>
+    </div>
+  );
 };
 
 export default ItemAside;

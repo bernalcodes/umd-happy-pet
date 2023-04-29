@@ -9,46 +9,42 @@ import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import VetOverviewCard from "../VetOverviewCard/VetOverviewCard";
 
 const VetDashboard = () => {
-	const [isOpenAddCustomer, openAddCustomer, closeAddCustomer] =
-		useModal(false);
-	const [isOpenMenu, openMenu, closeMenu] = useModal(false);
+  const [isOpenAddCustomer, openAddCustomer, closeAddCustomer] =
+    useModal(false);
+  const [isOpenMenu, openMenu, closeMenu] = useModal(false);
 
-	return (
-		<div className="flex flex-row bg-happy-grey-blue">
-			<ModalAddCustomer
-				open={isOpenAddCustomer}
-				closeAddCustomer={closeAddCustomer}
-			/>
-			<Aside open={isOpenMenu} closeMenu={closeMenu} />
-			<div className="w-full h-screen">
-				<NavbarDashboard openMenu={openMenu} />
-				<VetOverview />
-				<div className="py-2  rounded-t-3xl h-full">
-					<div className=" max-w-screen-2xl m-auto px-5">
-						<div className="flex justify-between px-3 py-6 items-end">
-							<h2 className="md:text-2xl text-xl font-semibold">
-								Hi, Andres
-							</h2>
-							<div className="flex gap-3">
-								<button
-									onClick={openAddCustomer}
-									className="flex gap-2 items-center bg-happy-color-primary hover:bg-happy-color-primary-light py-[6px] px-4 rounded-md border border-solid border-transparent hover:border-happy-color-primary text-white transition-colors"
-								>
-									<FontAwesomeIcon icon={faCirclePlus} />
-									<p className="md:text-lg text-base">
-										Add Customer
-									</p>
-								</button>
-							</div>
-						</div>
-            <div className="overviews flex gap-6">
-              <VetOverviewCard/>
+  return (
+    <div className="flex flex-row bg-happy-grey-blue">
+      <ModalAddCustomer
+        open={isOpenAddCustomer}
+        closeAddCustomer={closeAddCustomer}
+      />
+      <Aside open={isOpenMenu} closeMenu={closeMenu} />
+      <div className="h-screen w-full">
+        <NavbarDashboard openMenu={openMenu} />
+        <VetOverview />
+        <div className="h-full  rounded-t-3xl py-2">
+          <div className=" m-auto max-w-screen-2xl px-5">
+            <div className="flex items-end justify-between px-3 py-6">
+              <h2 className="text-xl font-semibold md:text-2xl">Hi, Andres</h2>
+              <div className="flex gap-3">
+                <button
+                  onClick={openAddCustomer}
+                  className="flex items-center gap-2 rounded-md border border-solid border-transparent bg-happy-color-primary px-4 py-[6px] text-white transition-colors hover:border-happy-color-primary hover:bg-happy-color-primary-light"
+                >
+                  <FontAwesomeIcon icon={faCirclePlus} />
+                  <p className="text-base md:text-lg">Add Customer</p>
+                </button>
+              </div>
             </div>
-					</div>
-				</div>
-			</div>
-		</div>
-	);
+            <div className="overviews flex gap-6">
+              <VetOverviewCard />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 };
 
 export default VetDashboard;

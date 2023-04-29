@@ -6,7 +6,10 @@
     "dev": "next dev --port 4000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "eslint --fix .",
+    "prettier:fix": "prettier --write \"src/**/*{js,jsx,ts,tsx,html}\"",
+    "fix:all": "npm run lint:fix && npm run prettier:fix"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
