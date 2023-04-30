@@ -1,12 +1,12 @@
-import LayoutHome from '@/components/Layout/LayoutHome'
-import React from 'react'
+import LayoutHome from "@/components/Layout/LayoutHome";
+import React from "react";
 
 const index = () => {
   return (
     <LayoutHome>
-        <div>Services page</div>
+      <div>Services page</div>
     </LayoutHome>
-  )
-}
+  );
+};
 
-export default index
+export default index;

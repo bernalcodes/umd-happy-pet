@@ -1,5 +1,5 @@
-import React from 'react'
-import Navbar from '../Navbar/Navbar'
+import React from "react";
+import Navbar from "../Navbar/Navbar";
 
 interface Props {
   children: React.ReactNode;
@@ -8,10 +8,10 @@ interface Props {
 const LayoutHome: React.FC<Props> = ({ children }) => {
   return (
     <div>
-        <Navbar/>
-        <main>{ children }</main>
+      <Navbar />
+      <main>{children}</main>
     </div>
-  )
-}
+  );
+};
 
-export default LayoutHome
+export default LayoutHome;

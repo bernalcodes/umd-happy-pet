@@ -6,7 +6,10 @@
     "dev": "next dev --port 4000",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lint:fix": "eslint --fix .",
+    "prettier:fix": "prettier --write \"src/**/*{js,jsx,ts,tsx,html}\"",
+    "fix:all": "npm run lint:fix && npm run prettier:fix"
   },
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -33,9 +36,11 @@
     "react-hook-form": "^7.43.9",
     "react-multi-carousel": "^2.8.3",
     "swiper": "^9.2.2",
-    "typescript": "5.0.3"
+    "typescript": "5.0.3",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@types/uuid": "^9.0.1",
     "autoprefixer": "^10.4.14",
     "postcss": "^8.4.21",
     "prettier": "^2.8.8",

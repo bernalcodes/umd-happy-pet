@@ -1,11 +1,8 @@
-
-import CustomerDashboard from '@/components/DashboardCustomer/CustomerDashboard'
-import React from 'react'
+import CustomerDashboard from "@/components/DashboardCustomer/CustomerDashboard";
+import React from "react";
 
 const index = () => {
-  return (
-    <CustomerDashboard/>
-  )
-}
+  return <CustomerDashboard />;
+};
 
-export default index
+export default index;
