@@ -7,6 +7,7 @@ import {
   Button,
 } from "@material-tailwind/react";
 import { v4 as uuid } from "uuid";
+import { FieldErrors, UseFormRegister } from "react-hook-form";
 
 function Icon({ id, open }: { id: number; open: number }) {
   return (
@@ -30,15 +31,19 @@ export default function AccordionPetForm({
   handleOpen,
   open,
   handleAddPet,
+  register,
+  errors,
 }: {
   id: number;
   handleOpen: (value: number) => void;
   open: number;
   handleAddPet: (newPet: Pet, idPet: string) => void;
+  register: UseFormRegister<Customer>;
+  errors: FieldErrors<Customer>;
 }) {
   const [newPet, setNewPet] = useState<Pet>({
+    age: "",
     id: "",
-    age: 0,
     breed: "",
     img: "",
     name: "",
@@ -62,7 +67,7 @@ export default function AccordionPetForm({
         <AccordionBody>
           <div className="flex flex-col gap-3">
             <div className="flex gap-3">
-              <Input label="Pet name" onChange={handleChange} name="name" />
+              <Input label="Pet name" name="name" onChange={handleChange} />
               <Input label="Age" name="age" onChange={handleChange} />
             </div>
             <div className="flex gap-3">
@@ -71,6 +76,9 @@ export default function AccordionPetForm({
                 onClick={() => {
                   handleAddPet(newPet, uuid());
                 }}
+                disabled={
+                  newPet.name === "" || newPet.age === "" || newPet.breed === ""
+                }
                 className="whitespace-nowrap rounded-lg bg-happy-color-primary px-6 py-2 normal-case text-white transition-colors hover:bg-happy-color-primary-light"
               >
                 Add pet

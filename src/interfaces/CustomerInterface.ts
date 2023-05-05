@@ -1,10 +1,8 @@
 interface Customer {
-  id: string;
   name: string;
-  age: number;
-  img: string;
+  last_name: string;
   address: string;
-  phone?: string;
+  phone_number?: string;
   email?: string;
-  pets: Pet[];
+  pet_list: Pet[];
 }
