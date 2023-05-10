@@ -1,12 +1,15 @@
 import Image from "next/image";
 import React, { Fragment } from "react";
 import VetOverviewLayout from "../VetOverviewLayout/VetOverviewLayout";
+import { CustomersDataContext, useCustomers } from "@/context/CustomersContext";
+import users from "../../data/users.json" assert { type: "JSON" };
 
 const VetOverviewPetsItem = ({ pet }: { pet: Pet }) => {
   return (
     <div className="group flex cursor-pointer items-center justify-between gap-5">
       <div className="flex items-center gap-2">
         <Image
+          // @ts-ignore
           src={pet.img}
           className="h-11 w-11 rounded-xl shadow-md"
           height={200}
@@ -27,7 +30,11 @@ const VetOverviewPetsItem = ({ pet }: { pet: Pet }) => {
   );
 };
 
-const VetOverviewCustomerItem = ({ customer }: { customer: Customer }) => {
+const VetOverviewCustomerItem = ({
+  customer,
+}: {
+  customer: Customer | any;
+}) => {
   return (
     <div className="group flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
       <div className="flex items-center gap-2 ">
@@ -36,7 +43,8 @@ const VetOverviewCustomerItem = ({ customer }: { customer: Customer }) => {
             g
           </span>
           <Image
-            src={customer.img}
+            //src="https://placeimg.com/200/200/any"
+            src={customer.image}
             className="h-11 w-11 rounded-xl shadow-md"
             height={200}
             width={200}
@@ -45,9 +53,9 @@ const VetOverviewCustomerItem = ({ customer }: { customer: Customer }) => {
         </div>
         <div className="flex flex-col">
           <p className="font-normal group-hover:text-happy-color-primary group-hover:underline">
-            {customer.name}
+            {customer.firstName}
           </p>
-          <p className="text-blue-gray-400">{customer.address}</p>
+          <p className="text-blue-gray-400">{customer.address.address}</p>
         </div>
       </div>
       <p className="text-blue-gray-700">4 pets</p>
@@ -55,67 +63,28 @@ const VetOverviewCustomerItem = ({ customer }: { customer: Customer }) => {
   );
 };
 
-const pets: Pet[] = [
-  {
-    name: "Luna",
-    breed: "Poodle",
-    img: "https://placeimg.com/400/400/animals",
-    id: "1",
-    age: 2,
-    color: "Red",
-    owner: "Andres",
-  },
-  {
-    name: "Pepita de tomate",
-    breed: "Poodle",
-    img: "https://placeimg.com/400/400/any",
-    id: "1",
-    age: 2,
-    color: "Red",
-    owner: "Andres",
-  },
-  {
-    name: "Pepita de tomate",
-    breed: "Poodle",
-    img: "https://placeimg.com/400/400/any",
-    id: "1",
-    age: 2,
-    color: "Red",
-    owner: "Andres",
-  },
-];
-
-const customers: Customer[] = [
-  {
-    id: "1",
-    name: "Andres",
-    img: "https://placeimg.com/400/400/people",
-    age: 2,
-    address: "Calle 123",
-    pets: ["1", "2"],
-  },
-  {
-    id: "1",
-    name: "Juana",
-    img: "https://placeimg.com/400/400/people",
-    age: 2,
-    address: "Calle 123",
-    pets: ["1", "2"],
-  },
-];
-
 const VetOverviewCard = () => {
+  const { customers }: CustomersDataContext = useCustomers();
+
+  console.log(users);
+
   return (
     <Fragment>
       <VetOverviewLayout title="Pets">
-        {pets.map((pet, index) => (
-          <VetOverviewPetsItem pet={pet} key={index} />
-        ))}
+        {/*{users.map((pet, index) => (*/}
+        {/*  <VetOverviewPetsItem pet={pet} key={index} />*/}
+        {/*))}*/}
+        <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
+          See all pets
+        </div>
       </VetOverviewLayout>
       <VetOverviewLayout title="Customers">
-        {customers.map((customer, index) => (
+        {users.slice(0, 3).map((customer, index) => (
           <VetOverviewCustomerItem customer={customer} key={index} />
         ))}
+        <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
+          See all customers
+        </div>
       </VetOverviewLayout>
     </Fragment>
   );

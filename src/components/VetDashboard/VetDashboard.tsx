@@ -1,24 +1,30 @@
 import React from "react";
 import VetOverview from "../VetOverview/VetOverview";
 import { useModal } from "@/hooks/useModal";
-import ModalAddCustomer from "../Modal/Modal";
 import Aside from "../Aside/Aside";
 import NavbarDashboard from "../NavbarDashboard/NavbarDashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
 import VetOverviewCard from "../VetOverviewCard/VetOverviewCard";
+import Modal from "../Modal/Modal";
+import ModalAddCustomer from "../ModalAddCustomer/ModalAddCustomer";
+import ModalAddPet from "@/components/ModalAddPet/ModalAddPet";
 
 const VetDashboard = () => {
   const [isOpenAddCustomer, openAddCustomer, closeAddCustomer] =
     useModal(false);
   const [isOpenMenu, openMenu, closeMenu] = useModal(false);
+  const [isOpenAddPet, openAddPet, closeAddPet] = useModal(false);
 
   return (
     <div className="flex flex-row bg-happy-grey-blue">
-      <ModalAddCustomer
-        open={isOpenAddCustomer}
-        closeAddCustomer={closeAddCustomer}
-      />
+      <Modal open={isOpenAddCustomer} closeModal={closeAddCustomer}>
+        <ModalAddCustomer />
+      </Modal>
+      <Modal open={isOpenAddPet} closeModal={closeAddPet}>
+        <ModalAddPet />
+      </Modal>
+
       <Aside open={isOpenMenu} closeMenu={closeMenu} />
       <div className="h-screen w-full">
         <NavbarDashboard openMenu={openMenu} />
@@ -34,6 +40,12 @@ const VetDashboard = () => {
                 >
                   <FontAwesomeIcon icon={faCirclePlus} />
                   <p className="text-base md:text-lg">Add Customer</p>
+                </button>
+                <button
+                  onClick={openAddPet}
+                  className="flex items-center gap-2 rounded-md border border-solid border-transparent bg-happy-color-primary px-4 py-[6px] text-white transition-colors hover:border-happy-color-primary hover:bg-happy-color-primary-light"
+                >
+                  Add Pet
                 </button>
               </div>
             </div>
