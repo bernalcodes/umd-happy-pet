@@ -8,13 +8,13 @@ Minuto de Dios University Corporation, 2023
 
 # To-do
 
--   [ ] Plan project
--   [ ] Define style guides
--   [ ] Define UI
--   [ ] Define stack
--   [ ] Model data
--   [ ] Design app architecture
--   [ ] Design tests
+-   [X] Plan project
+-   [X] Define style guides
+-   [X] Define UI
+-   [X] Define stack
+-   [X] Model data
+-   [X] Design app architecture
+-   [X] Design tests
 -	[ ] Develop local demo
 -	[ ] Test local demo
 -   [ ] Deploy demo

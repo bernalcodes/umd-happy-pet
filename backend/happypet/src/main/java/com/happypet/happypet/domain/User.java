@@ -1,4 +1,4 @@
-package com.happypet.happypet.user;
+package com.happypet.happypet.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -20,6 +20,12 @@ public class User {
 
 	@Column(name = "user_password")
 	private String password;
+
+	@Column(name = "role")
+	private String role;
+
+	@Column(name = "profile_pic", columnDefinition = "BYTEA")
+	private byte[] profile_pic;
 
 	public String getId() {
 		return id;
@@ -43,5 +49,21 @@ public class User {
 
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
+	public byte[] getProfile_pic() {
+		return profile_pic;
+	}
+
+	public void setProfile_pic(byte[] profile_pic) {
+		this.profile_pic = profile_pic;
 	}
 }

@@ -1,4 +1,4 @@
-package com.happypet.happypet.system;
+package com.happypet.happypet.services.impl;
 
 import java.util.Collection;
 import java.util.Collections;
@@ -6,13 +6,12 @@ import java.util.Collections;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import com.happypet.happypet.user.User;
+import com.happypet.happypet.domain.User;
 
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
 public class UserDetailsImpl implements UserDetails {
-
 	private final User user;
 
 	@Override
