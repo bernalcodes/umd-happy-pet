@@ -1,8 +1,7 @@
 interface Pet {
   id: string;
-  img?: string;
+  img?: string | ArrayBuffer | null;
   name: string;
-  age: number;
+  age: string;
   breed: string;
-  owner?: string;
 }
