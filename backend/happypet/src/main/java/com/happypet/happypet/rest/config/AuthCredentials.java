@@ -1,4 +1,4 @@
-package com.happypet.happypet.system;
+package com.happypet.happypet.rest.config;
 
 import lombok.Data;
 
