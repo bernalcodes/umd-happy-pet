@@ -59,19 +59,20 @@ public class UserController {
 			if (newUser.isPresent()) {
 				if (jsonDetails.get("personDetails") != null && jsonDetails.get("role") != null) {
 					switch (jsonDetails.get("role").asText()) {
-						case "CUSTOMER" -> {
+						case "CUSTOMER":
 							Customer newCustomer = mapper.treeToValue(jsonDetails.get("personDetails"), Customer.class);
 							newCustomer.setUser_id(newUser.get().getId());
 							customerService.createCustomer(newCustomer);
 							logger.info("A user of type [CUSTOMER] was created");
-						}
-						case "VETERINARY" -> {
+							break;
+						
+						case "VETERINARY":
 							Veterinary newVet = mapper.treeToValue(jsonDetails.get("personDetails"), Veterinary.class);
 							newVet.setUser_id(newUser.get().getId());
 							veterinaryService.createVet(newVet);
 							logger.info("A user of type [VETERINARY] was created");
-						}
-						default -> logger.info("No type was specified for this user");
+							break;
+						default: logger.info("No type was specified for this user"); break;
 					}
 				}
 				return new ResponseEntity<>("User was created successfully", HttpStatus.CREATED);
@@ -94,21 +95,21 @@ public class UserController {
 				response.put("profile_pic", b64pic_tostr);
 
 				switch (u.get().getRole()) {
-					case "CUSTOMER" -> {
+					case "CUSTOMER":
 						Optional<Customer> c = customerService.readCustomerByUserId(u.get().getId());
 						if (c.isPresent()) {
 							ObjectNode cNode = mapper.valueToTree(c);
 							response.set("customer_details", cNode);
 						}
-					}
-					case "VETERINARY" -> {
+						break;
+					case "VETERINARY":
 						Optional<Veterinary> v = veterinaryService.readVetByUserId(u.get().getId());
 						if (v.isPresent()) {
 							ObjectNode cNode = mapper.valueToTree(v);
 							response.set("vet_details", cNode);
 						}
-					}
-					default -> logger.info("User does not have a role assigned");
+						break;
+					default: logger.info("User does not have a role assigned"); break;
 				}
 				return new ResponseEntity<>(response.toString(), HttpStatus.OK);
 			}
