@@ -12,4 +12,4 @@ FROM openjdk:19-alpine
 COPY --from=build /target/happypet-0.0.1-SNAPSHOT.jar happypet.jar
 # ENV PORT=8080
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","demo.jar"]
+ENTRYPOINT ["java","-jar","happypet.jar"]
