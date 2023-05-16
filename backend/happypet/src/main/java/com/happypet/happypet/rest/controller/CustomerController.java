@@ -45,16 +45,15 @@ public class CustomerController {
 	@PostMapping("/new")
 	public ResponseEntity<String> createCustomer(@RequestBody Customer customer) {
 		try {
-			logger.info("Client received: " + customer.toString());
 			Optional<Customer> savedCustomer = customerService.createCustomer(customer);
 			if (savedCustomer.isPresent())
-				return new ResponseEntity<>("The customer information provided was saved successfully",
+				return new ResponseEntity<>("Customer was created successfully",
 						HttpStatus.CREATED);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>("An error was found while saving the customer information provided",
+		return new ResponseEntity<>("Error occurred while creating customer",
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -64,12 +63,12 @@ public class CustomerController {
 		try {
 			for (Customer customer : customerList)
 				customerService.createCustomer(customer);
-			return new ResponseEntity<>("The list of customers provided was saved successfully", HttpStatus.CREATED);
+			return new ResponseEntity<>("List of customers created successfully", HttpStatus.CREATED);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
 			e.printStackTrace();
 		}
-		return new ResponseEntity<>("An error was found while saving the list of clients provided",
+		return new ResponseEntity<>("Error occurred while creating list of customer",
 				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
@@ -80,7 +79,12 @@ public class CustomerController {
 			Optional<Customer> customer = customerService.readCustomerById(id);
 			if (customer.isPresent()) {
 				ObjectNode customerNode = mapper.valueToTree(customer);
-				return new ResponseEntity<>(customerNode.toString(),HttpStatus.FOUND);
+				List<Pet> petList = petService.findPetsByOwnerId(customer.get().getId());
+				if (!petList.isEmpty()) {
+					ArrayNode petListNode = mapper.valueToTree(petList);
+					customerNode.set("petList", petListNode);
+				}
+				return new ResponseEntity<>(customerNode.toString(), HttpStatus.FOUND);
 			}
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
@@ -99,15 +103,12 @@ public class CustomerController {
 			for (Customer customer : customerList) {
 				ObjectNode customerNode = mapper.valueToTree(customer);
 				List<Pet> petList = petService.findPetsByOwnerId(customer.getId());
-
 				if (!petList.isEmpty()) {
 					ArrayNode petListNode = mapper.valueToTree(petList);
 					customerNode.set("petList", petListNode);
 				}
-
 				customerNodeList.add(customerNode);
 			}
-
 			JsonNode response = mapper.createObjectNode().set("customerList", customerNodeList);
 			return new ResponseEntity<>(response.toString(), HttpStatus.OK);
 		} catch (Exception e) {
@@ -118,7 +119,7 @@ public class CustomerController {
 	}
 
 	// UPDATE Customer
-	@PutMapping()
+	@PutMapping
 	public ResponseEntity<String> updateCustomer(@RequestBody Customer customer) {
 		try {
 			customerService.updateCustomer(customer);

@@ -21,11 +21,11 @@ public class CustomerService {
 		return Optional.of(customerRepository.save(customer));
 	}
 
-	// READ Customer
+	// READ Customer by ID
 	public Optional<Customer> readCustomerById(String customer_id) {
 		Optional<Customer> c = customerRepository.findCustomerById(customer_id);
 		if (!c.isPresent())
-			throw new RuntimeException("Customer not found");
+			throw new RuntimeException("Customer was not found");
 		return c;
 	}
 
@@ -33,7 +33,15 @@ public class CustomerService {
 	public Optional<Customer> readCustomerByEmail(String customer_email) {
 		Optional<Customer> c = customerRepository.findCustomerByEmail(customer_email);
 		if (!c.isPresent())
-			throw new RuntimeException("Customer not found");
+			throw new RuntimeException("Customer was not found");
+		return c;
+	}
+
+	// READ Customer by user ID
+	public Optional<Customer> readCustomerByUserId(String user_id) {
+		Optional<Customer> c = customerRepository.findCustomerByUserId(user_id);
+		if (!c.isPresent())
+			throw new RuntimeException("Customer was not found");
 		return c;
 	}
 
@@ -41,7 +49,7 @@ public class CustomerService {
 	public List<Customer> readAllCustomers() throws Exception {
 		List<Customer> cl = customerRepository.findAll();
 		if (cl.isEmpty())
-			throw new RuntimeException("No customers found");
+			throw new RuntimeException("No customers were found");
 		return cl;
 	}
 
@@ -49,7 +57,7 @@ public class CustomerService {
 	public void updateCustomer(Customer customer) throws Exception {
 		Optional<Customer> c = customerRepository.findById(customer.getId());
 		if (!c.isPresent())
-			throw new Exception("Customer not found");
+			throw new Exception("Customer was not found");
 		customerRepository.save(customer);
 	}
 
@@ -57,7 +65,7 @@ public class CustomerService {
 	public void deleteCustomer(String customer_id) throws Exception {
 		Optional<Customer> c = customerRepository.findById(customer_id);
 		if (!c.isPresent())
-			throw new Exception("Customer not found");
+			throw new Exception("Customer was not found");
 		customerRepository.deleteById(customer_id);
 	}
 }

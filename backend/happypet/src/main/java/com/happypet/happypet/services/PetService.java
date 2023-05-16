@@ -26,23 +26,23 @@ public class PetService {
 	public Optional<Pet> readPetById(String petId) throws Exception {
 		Optional<Pet> p = petRepository.findById(petId);
 		if (!p.isPresent())
-			throw new Exception("Pet with provided ID was not found");
+			throw new Exception("Pet was not found");
 		return p;
-	}
-
-	// READ all pets
-	public List<Pet> readAllPets() throws Exception {
-		List<Pet> pl = petRepository.findAll();
-		if (pl.isEmpty())
-			throw new Exception("No pets found");
-		return pl;
 	}
 
 	// READ pets by Owner ID
 	public List<Pet> findPetsByOwnerId(String owner_id) throws Exception {
 		List<Pet> pl = petRepository.findOwnerPetList(owner_id);
 		if (pl.isEmpty())
-			throw new Exception("No pets found for provided owner id");
+			throw new Exception("No pets were found");
+		return pl;
+	}
+
+	// READ all pets
+	public List<Pet> readAllPets() throws Exception {
+		List<Pet> pl = petRepository.findAll();
+		if (pl.isEmpty())
+			throw new Exception("No pets were found");
 		return pl;
 	}
 
@@ -50,7 +50,7 @@ public class PetService {
 	public void updatePet(Pet pet) throws Exception {
 		Optional<Pet> p = petRepository.findById(pet.getId());
 		if (!p.isPresent())
-			throw new Exception("Provided pet data was not found");
+			throw new Exception("Pet was not found");
 		petRepository.save(pet);
 	}
 
@@ -58,7 +58,7 @@ public class PetService {
 	public void deletePet(String petId) throws Exception {
 		Optional<Pet> p = petRepository.findById(petId);
 		if (!p.isPresent())
-			throw new Exception("Provided pet was not found");
+			throw new Exception("Pet was not found");
 		petRepository.deleteById(petId);
 	}
 }

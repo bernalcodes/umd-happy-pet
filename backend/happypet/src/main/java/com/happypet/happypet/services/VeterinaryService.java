@@ -18,23 +18,15 @@ public class VeterinaryService {
 	public Optional<Veterinary> createVet(Veterinary vet) throws Exception {
 		Optional<Veterinary> v = veterinaryRepository.findByEmail(vet.getEmail());
 		if (v.isPresent())
-			throw new Exception("Veterinary using provided data already exists");
+			throw new Exception("Veterinary already exists");
 		return Optional.of(veterinaryRepository.save(vet));
-	}
-
-	// READ all veterinaries
-	public List<Veterinary> readAllVets() throws Exception {
-		List<Veterinary> vl = veterinaryRepository.findAll();
-		if (vl.isEmpty())
-			throw new Exception("No veterinaries found");
-		return vl;
 	}
 
 	// READ Veterinary by ID
 	public Optional<Veterinary> readVetById(String vet_id) throws Exception {
 		Optional<Veterinary> v = veterinaryRepository.findVetById(vet_id);
 		if (!v.isPresent())
-			throw new Exception("Veterinary with provided ID was not found");
+			throw new Exception("Veterinary was not found");
 		return v;
 	}
 
@@ -42,15 +34,31 @@ public class VeterinaryService {
 	public Optional<Veterinary> readVetByEmail(String vet_email) throws Exception {
 		Optional<Veterinary> v = veterinaryRepository.findByEmail(vet_email);
 		if (!v.isPresent())
-			throw new Exception("Veterinary with provided email was not found");
+			throw new Exception("Veterinary was not found");
 		return v;
+	}
+
+	// READ Veterinary by user ID
+	public Optional<Veterinary> readVetByUserId(String user_id) throws Exception {
+		Optional<Veterinary> v = veterinaryRepository.findByUserId(user_id);
+		if (!v.isPresent())
+			throw new Exception("Veterinary was not found");
+		return v;
+	}
+
+	// READ all veterinaries
+	public List<Veterinary> readAllVets() throws Exception {
+		List<Veterinary> vl = veterinaryRepository.findAll();
+		if (vl.isEmpty())
+			throw new Exception("No veterinaries were found");
+		return vl;
 	}
 
 	// UPDATE Veterinary
 	public void updateVet(Veterinary vet) {
 		Optional<Veterinary> v = veterinaryRepository.findById(vet.getId());
 		if (!v.isPresent())
-			throw new RuntimeException("Provided veterinary data was not found");
+			throw new RuntimeException("Veterinary was not found");
 		veterinaryRepository.save(vet);
 	}
 
@@ -58,7 +66,7 @@ public class VeterinaryService {
 	public void deleteVet(String vet_id) throws Exception {
 		Optional<Veterinary> v = veterinaryRepository.findById(vet_id);
 		if (!v.isPresent())
-			throw new RuntimeException("Provided veterinary data was not found");
+			throw new RuntimeException("Veterinary was not found");
 		veterinaryRepository.deleteById(vet_id);
 	}
 }

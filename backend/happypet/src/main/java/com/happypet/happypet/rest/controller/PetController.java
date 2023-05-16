@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,7 +49,22 @@ public class PetController {
 			e.printStackTrace();
 		}
 
-		return new ResponseEntity<>("", HttpStatus.INTERNAL_SERVER_ERROR);
+		return new ResponseEntity<>("Error occured while creating pet", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	// CREATE Pets
+	@PostMapping("/new/list")
+	public ResponseEntity<String> createCustomers(@RequestBody List<Pet> petList) {
+		try {
+			for (Pet pet : petList)
+				petService.createPet(pet);
+			return new ResponseEntity<>("List of pets created successfully", HttpStatus.CREATED);
+		} catch (Exception e) {
+			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("Error occurred while creating list of pets",
+				HttpStatus.INTERNAL_SERVER_ERROR);
 	}
 
 	// READ Pet
@@ -60,6 +76,25 @@ public class PetController {
 				ObjectNode response = mapper.valueToTree(pet);
 				return new ResponseEntity<>(response.toString(), HttpStatus.OK);
 			}
+		} catch (Exception e) {
+			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("No pets found", HttpStatus.NOT_FOUND);
+	}
+
+	// READ user's pets
+	@GetMapping
+	public ResponseEntity<String> readUserPets(@RequestHeader(name = "owner_id", required = true) String owner_id) {
+		try {
+			List<Pet> pl = petService.findPetsByOwnerId(owner_id);
+			ArrayNode petNodeArray = mapper.createArrayNode();
+			for (Pet p : pl) {
+				ObjectNode petNode = mapper.valueToTree(p);
+				petNodeArray.add(petNode);
+			}
+			JsonNode response = mapper.createObjectNode().set("petList", petNodeArray);
+			return new ResponseEntity<>(response.toString(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
 			e.printStackTrace();
@@ -92,12 +127,26 @@ public class PetController {
 	// UPDATE Pet
 	@PutMapping
 	public ResponseEntity<String> updatePet(@RequestBody Pet pet) {
-		return null;
+		try {
+			petService.updatePet(pet);
+			return new ResponseEntity<>("Pet was updated successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("Requested pet to update was not found", HttpStatus.NOT_FOUND);
 	}
 
 	// DELETE Pet
 	@DeleteMapping("/{petId}")
 	public ResponseEntity<String> deletePet(@PathVariable String petId) {
-		return null;
+		try {
+			petService.deletePet(petId);
+			return new ResponseEntity<>("Pet was deleted successfully", HttpStatus.OK);
+		} catch (Exception e) {
+			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("Requested pet to delete was not found", HttpStatus.NOT_FOUND);
 	}
 }

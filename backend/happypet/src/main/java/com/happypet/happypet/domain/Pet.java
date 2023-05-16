@@ -2,7 +2,6 @@ package com.happypet.happypet.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 
@@ -22,8 +21,8 @@ public class Pet extends BaseEntity {
 	@Column(name = "owner_id")
 	private String owner_id;
 
-	@Lob
-	private String pet_pic;
+	@Column(name = "pet_pic", columnDefinition = "BYTEA")
+	private byte[] pet_pic;
 
 	public String getName() {
 		return name;
@@ -57,11 +56,11 @@ public class Pet extends BaseEntity {
 		this.owner_id = owner_id;
 	}
 
-	public String getPet_pic() {
+	public byte[] getPet_pic() {
 		return pet_pic;
 	}
 
-	public void setPet_pic(String pet_pic) {
+	public void setPet_pic(byte[] pet_pic) {
 		this.pet_pic = pet_pic;
 	}
 }

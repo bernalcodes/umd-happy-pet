@@ -67,8 +67,9 @@ public class UserController {
 						}
 						case "VETERINARY" -> {
 							Veterinary newVet = mapper.treeToValue(jsonDetails.get("personDetails"), Veterinary.class);
+							newVet.setUser_id(newUser.get().getId());
 							veterinaryService.createVet(newVet);
-							logger.info("A user of type [VET] was created");
+							logger.info("A user of type [VETERINARY] was created");
 						}
 						default -> logger.info("No type was specified for this user");
 					}
@@ -91,6 +92,24 @@ public class UserController {
 				ObjectNode response = mapper.valueToTree(u);
 				String b64pic_tostr = Base64.encodeBase64String(u.get().getProfile_pic());
 				response.put("profile_pic", b64pic_tostr);
+
+				switch (u.get().getRole()) {
+					case "CUSTOMER" -> {
+						Optional<Customer> c = customerService.readCustomerByUserId(u.get().getId());
+						if (c.isPresent()) {
+							ObjectNode cNode = mapper.valueToTree(c);
+							response.set("customer_details", cNode);
+						}
+					}
+					case "VETERINARY" -> {
+						Optional<Veterinary> v = veterinaryService.readVetByUserId(u.get().getId());
+						if (v.isPresent()) {
+							ObjectNode cNode = mapper.valueToTree(v);
+							response.set("vet_details", cNode);
+						}
+					}
+					default -> logger.info("User does not have a role assigned");
+				}
 				return new ResponseEntity<>(response.toString(), HttpStatus.OK);
 			}
 		} catch (Exception e) {
