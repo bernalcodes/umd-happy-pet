@@ -3,7 +3,7 @@
 #
 FROM maven:3.9-ibmjava AS build
 COPY . .
-RUN mvn clean package -Pprod -DskipTests
+RUN mvn clean package -DskipTests
 
 #
 # Package stage
