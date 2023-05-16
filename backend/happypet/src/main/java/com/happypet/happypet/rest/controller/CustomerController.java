@@ -94,7 +94,7 @@ public class CustomerController {
 	}
 
 	// READ all customers
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<String> readCustomers() {
 		try {
 			List<Customer> customerList = customerService.readAllCustomers();
