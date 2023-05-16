@@ -21,22 +21,28 @@ public class UserService {
 			throw new Exception("User already exists");
 		return Optional.of(userRepository.save(user));
 	}
-	
-	// READ User by id
-	public Optional<User> readUserById(String userId) {
-		return userRepository.findById(userId);
+
+	// READ User by ID
+	public Optional<User> readUserById(String userId) throws Exception {
+		Optional<User> u = userRepository.findById(userId);
+		if (!u.isPresent())
+			throw new Exception("User was not found");
+		return u;
 	}
-	
+
 	// READ User by email
-	public Optional<User> readUserByEmail(String userEmail) {
-		return userRepository.findUserByEmail(userEmail);
+	public Optional<User> readUserByEmail(String userEmail) throws Exception {
+		Optional<User> u = userRepository.findUserByEmail(userEmail);
+		if (!u.isPresent())
+			throw new Exception("User was not found");
+		return u;
 	}
-	
+
 	// READ all users
 	public List<User> readAllUsers() throws Exception {
 		List<User> ul = userRepository.findAll();
 		if (ul.isEmpty())
-			throw new Exception("No users found");
+			throw new Exception("No users were found");
 		return ul;
 	}
 

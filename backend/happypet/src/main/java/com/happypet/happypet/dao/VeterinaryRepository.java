@@ -13,4 +13,7 @@ public interface VeterinaryRepository extends JpaRepository<Veterinary, String> 
 
 	@Query("SELECT v FROM Veterinary v WHERE v.email = ?1")
     Optional<Veterinary> findByEmail(String email);
+
+	@Query("SELECT v FROM Veterinary v WHERE v.user_id = ?1")
+    Optional<Veterinary> findByUserId(String user_id);
 }

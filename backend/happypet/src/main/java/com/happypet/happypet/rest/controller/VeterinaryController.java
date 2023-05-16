@@ -37,14 +37,52 @@ public class VeterinaryController {
 	private VeterinaryService veterinaryService;
 
 	// CREATE Veterinary
-	@PostMapping
-	public ResponseEntity<String> createVet() {
-		return null;
+	@PostMapping("/new")
+	public ResponseEntity<String> createVet(@RequestBody Veterinary vet) {
+		try {
+			Optional<Veterinary> savedVet = veterinaryService.createVet(vet);
+			if (savedVet.isPresent())
+				return new ResponseEntity<>("Veterinary created successfully",
+						HttpStatus.CREATED);
+		} catch (Exception e) {
+			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("Error occurred while creating veterinary", HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	// CREATE Veterinaries
+	@PostMapping("/new/list")
+	public ResponseEntity<String> createCustomers(@RequestBody List<Veterinary> vetList) {
+		try {
+			for (Veterinary vet : vetList)
+				veterinaryService.createVet(vet);
+			return new ResponseEntity<>("List of veterinaries created successfully", HttpStatus.CREATED);
+		} catch (Exception e) {
+			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("Error occurred while creating list of veterinaries",
+				HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+
+	// READ Veterinary
+	@GetMapping("/{vetId}")
+	public ResponseEntity<String> readVet(@PathVariable String vetId) {
+		try {
+			Optional<Veterinary> vet = veterinaryService.readVetById(vetId);
+			if (vet.isPresent())
+				return new ResponseEntity<String>(vet.get().toString(), HttpStatus.OK);
+		} catch (Exception e) {
+			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+			e.printStackTrace();
+		}
+		return new ResponseEntity<>("Veterinary not found", HttpStatus.NOT_FOUND);
 	}
 
 	// READ all veterinaries
 	@GetMapping
-	public ResponseEntity<String> listVets() {
+	public ResponseEntity<String> readVets() {
 		try {
 			List<Veterinary> vetList = veterinaryService.readAllVets();
 			ArrayNode vetNodeList = mapper.createArrayNode();
@@ -62,25 +100,11 @@ public class VeterinaryController {
 		return new ResponseEntity<>("No veterinaries found", HttpStatus.NOT_FOUND);
 	}
 
-	// READ Veterinary
-	@GetMapping("/{vetId}")
-	public ResponseEntity<String> findVeterinary(@PathVariable String vetId) {
-		try {
-			Optional<Veterinary> vet = veterinaryService.readVetById(vetId);
-			if (vet.isPresent())
-				return new ResponseEntity<String>(vet.get().toString(), HttpStatus.OK);
-		} catch (Exception e) {
-			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
-			e.printStackTrace();
-		}
-		return new ResponseEntity<>("Veterinary not found", HttpStatus.NOT_FOUND);
-	}
-
 	// UPDATE Veterinary
-	@PutMapping()
-	public ResponseEntity<String> updateVeterinary(@RequestBody Veterinary vet) {
+	@PutMapping
+	public ResponseEntity<String> updateVet(@RequestBody Veterinary vet) {
 		try {
-			veterinaryService.createVet(vet);
+			veterinaryService.updateVet(vet);
 			return new ResponseEntity<>("Veterinary was updated successfully", HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
@@ -91,7 +115,7 @@ public class VeterinaryController {
 
 	// DELETE Veterinary
 	@DeleteMapping("/{vetId}")
-	public ResponseEntity<String> deleteVeterinary(@PathVariable String vetId) {
+	public ResponseEntity<String> deleteVet(@PathVariable String vetId) {
 		try {
 			veterinaryService.deleteVet(vetId);
 			return new ResponseEntity<>("Veterinary was deleted successfully", HttpStatus.OK);
