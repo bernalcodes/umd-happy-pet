@@ -81,7 +81,7 @@ public class VeterinaryController {
 	}
 
 	// READ all veterinaries
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<String> readVets() {
 		try {
 			List<Veterinary> vetList = veterinaryService.readAllVets();

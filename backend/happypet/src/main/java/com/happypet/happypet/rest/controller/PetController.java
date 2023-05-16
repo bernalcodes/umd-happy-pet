@@ -103,7 +103,7 @@ public class PetController {
 	}
 
 	// READ all pets
-	@GetMapping
+	@GetMapping("/all")
 	public ResponseEntity<String> readPets() {
 		try {
 			List<Pet> petList = petService.readAllPets();
