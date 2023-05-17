@@ -191,21 +191,21 @@ Minuto de Dios University Corporation, 2023
 	-	`CREATE`
     -	`/customers/new` via `POST` method with the following request body:
 
-				```
-				{
-					"name": "Customer Test Name",
-					"last_name": "Customer Test Last Name",
-					"phone_number": "123456789",
-					"email": "customer_test@test.com",
-					"address": "Test Address for Test Customer"
-				}
-				```
+        ```
+        {
+          "name": "Customer Test Name",
+          "last_name": "Customer Test Last Name",
+          "phone_number": "123456789",
+          "email": "customer_test@test.com",
+          "address": "Test Address for Test Customer"
+        }
+        ```
 				
     - `/customers/new/list` via `POST` method
-				-	The body should be a list of Customer-type objects
-				-	The expected response should look like the following:
-					-	Success: `List of customers created successfully` with `201 CREATED`
-					-	Failure: `Error occurred while creating list of customer` with `500 INTERNAL SERVER ERROR`
+      - The body should be a list of Customer-type objects
+      -	The expected response should look like the following:
+        -	Success: `List of customers created successfully` with `201 CREATED`
+        -	Failure: `Error occurred while creating list of customer` with `500 INTERNAL SERVER ERROR`
 	-	`READ`
 		-	`/customers/{customerId}` via `GET` method
 			-	The expected response should look like the following
@@ -254,21 +254,21 @@ Minuto de Dios University Corporation, 2023
 	-	`CREATE`
     -	`/vets/new` via `POST` method with the following request body:
 
-				```
-				{
-					"name": "Veterinary Test Name",
-					"last_name": "Veterinary Test Last Name",
-					"phone_number": "123456789",
-					"email": "veterinary_test@test.com",
-					"professional_card": "123456789"
-				}
-				```
+		```
+		{
+			"name": "Veterinary Test Name",
+			"last_name": "Veterinary Test Last Name",
+			"phone_number": "123456789",
+			"email": "veterinary_test@test.com",
+			"professional_card": "123456789"
+		}
+		```
 
     -	`/vets/new/list` via `POST` method
-				-	The body should be a list of Veterinary-type objects
-				-	The expected response should look like the following:
-					-	Success: `List of veterinaries created successfully` with `201 CREATED`
-					-	Failure: `Error occurred while creating list of veterinaries` with `500 INTERNAL SERVER ERROR`
+		-	The body should be a list of Veterinary-type objects
+		-	The expected response should look like the following:
+			-	Success: `List of veterinaries created successfully` with `201 CREATED`
+			-	Failure: `Error occurred while creating list of veterinaries` with `500 INTERNAL SERVER ERROR`
 	-	`READ`
 		-	`/vets/{vetId}` via `GET` method
 			-	The expected response should look like the following
@@ -317,21 +317,21 @@ Minuto de Dios University Corporation, 2023
 	-	`CREATE`
     -	`/pets/new` via `POST` method with the following request body:
 
-				```
-				{
-					"name": "Pet Name",
-					"specs": "Pet specifications",
-					"type": "petType",
-					"owner_id": "{customerId}",
-					"pet_pic": "{base64String}"
-				}
-				```
+		```
+		{
+			"name": "Pet Name",
+			"specs": "Pet specifications",
+			"type": "petType",
+			"owner_id": "{customerId}",
+			"pet_pic": "{base64String}"
+		}
+		```
 
     -	`/pets/new/list` via `POST` method
-				-	The body should be a list of Pet-type objects
-				-	The expected response should look like the following:
-					-	Success: `List of pets created successfully` with `201 CREATED`
-					-	Failure: `Error occurred while creating list of pets` with `500 INTERNAL SERVER ERROR`
+		-	The body should be a list of Pet-type objects
+		-	The expected response should look like the following:
+			-	Success: `List of pets created successfully` with `201 CREATED`
+			-	Failure: `Error occurred while creating list of pets` with `500 INTERNAL SERVER ERROR`
 	-	`READ`
 		-	`/pets` via `GET` method
 			-	Using the header `owner_id` with the user's ID (Customer-type User) as its value
@@ -385,25 +385,25 @@ Minuto de Dios University Corporation, 2023
 	-	`CREATE`
     -	`/visits/new` via `POST` method with the following request body:
 
-				```
-				{
-					"pet_id": "{petId}",
-					"vet_id": "{vetId}",
-					"date": {visitDate},
-					"temperature": {petTemp},
-					"weight": {petWeight},
-					"resp_freq": {petRespFreq},
-					"cardiac_freq": {petCardiacFreq},
-					"mood": "{petMood}",
-					"recommendation": "{vetRecommendation}"
-				}
-				```
+		```
+		{
+			"pet_id": "{petId}",
+			"vet_id": "{vetId}",
+			"date": {visitDate},
+			"temperature": {petTemp},
+			"weight": {petWeight},
+			"resp_freq": {petRespFreq},
+			"cardiac_freq": {petCardiacFreq},
+			"mood": "{petMood}",
+			"recommendation": "{vetRecommendation}"
+		}
+		```
 
     -	`/visits/new/list` via `POST` method
-				-	The body should be a list of Visit-type objects
-				-	The expected response should look like the following:
-					-	Success: `List of visits created successfully` with `201 CREATED`
-					-	Failure: `Error occurred while creating list of visits` with `500 INTERNAL SERVER ERROR`
+		-	The body should be a list of Visit-type objects
+		-	The expected response should look like the following:
+			-	Success: `List of visits created successfully` with `201 CREATED`
+			-	Failure: `Error occurred while creating list of visits` with `500 INTERNAL SERVER ERROR`
 	-	`READ`
 		-	`/visits/{visitId}` via `GET` method
 			-	The expected response should look like the following
