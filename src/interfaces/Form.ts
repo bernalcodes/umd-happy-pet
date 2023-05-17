@@ -5,7 +5,7 @@ export default interface Form {
   phoneNumber: number;
   password: string;
   confirmPassword?: string;
-  typeUser: string;
+  role: string;
   address?: string;
   cardNumber?: string;
 }
