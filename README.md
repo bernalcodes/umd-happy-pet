@@ -189,7 +189,7 @@ Minuto de Dios University Corporation, 2023
 
 -	There are available the following endpoints per operation:
 	-	`CREATE`
-			-	`/customers/new` via `POST` method with the following request body:
+    -	`/customers/new` via `POST` method with the following request body:
 
 				```
 				{
@@ -201,7 +201,7 @@ Minuto de Dios University Corporation, 2023
 				}
 				```
 				
-			-	`/customers/new/list` via `POST` method
+    - `/customers/new/list` via `POST` method
 				-	The body should be a list of Customer-type objects
 				-	The expected response should look like the following:
 					-	Success: `List of customers created successfully` with `201 CREATED`
@@ -252,7 +252,7 @@ Minuto de Dios University Corporation, 2023
 
 -	There are available the following endpoints per operation:
 	-	`CREATE`
-			-	`/vets/new` via `POST` method with the following request body:
+    -	`/vets/new` via `POST` method with the following request body:
 
 				```
 				{
@@ -264,7 +264,7 @@ Minuto de Dios University Corporation, 2023
 				}
 				```
 
-			-	`/vets/new/list` via `POST` method
+    -	`/vets/new/list` via `POST` method
 				-	The body should be a list of Veterinary-type objects
 				-	The expected response should look like the following:
 					-	Success: `List of veterinaries created successfully` with `201 CREATED`
@@ -315,7 +315,7 @@ Minuto de Dios University Corporation, 2023
 
 -	There are available the following endpoints per operation:
 	-	`CREATE`
-			-	`/pets/new` via `POST` method with the following request body:
+    -	`/pets/new` via `POST` method with the following request body:
 
 				```
 				{
@@ -327,7 +327,7 @@ Minuto de Dios University Corporation, 2023
 				}
 				```
 
-			-	`/pets/new/list` via `POST` method
+    -	`/pets/new/list` via `POST` method
 				-	The body should be a list of Pet-type objects
 				-	The expected response should look like the following:
 					-	Success: `List of pets created successfully` with `201 CREATED`
@@ -383,7 +383,7 @@ Minuto de Dios University Corporation, 2023
 
 -	There are available the following endpoints per operation:
 	-	`CREATE`
-			-	`/visits/new` via `POST` method with the following request body:
+    -	`/visits/new` via `POST` method with the following request body:
 
 				```
 				{
@@ -399,7 +399,7 @@ Minuto de Dios University Corporation, 2023
 				}
 				```
 
-			-	`/visits/new/list` via `POST` method
+    -	`/visits/new/list` via `POST` method
 				-	The body should be a list of Visit-type objects
 				-	The expected response should look like the following:
 					-	Success: `List of visits created successfully` with `201 CREATED`
