@@ -14,11 +14,11 @@ public class Veterinary extends Person {
 	@NotNull
 	private String professional_card;
 
-	public String getProfessionalCard() {
+	public String getProfessional_card() {
 		return professional_card;
 	}
 
-	public void setProfessionalCard(String professional_card) {
+	public void setProfessional_card(String professional_card) {
 		this.professional_card = professional_card;
 	}
 }
