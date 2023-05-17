@@ -57,8 +57,9 @@ public class UserController {
 			Optional<User> newUser = userService.createUser(user);
 
 			if (newUser.isPresent()) {
-				if (jsonDetails.get("personDetails") != null && jsonDetails.get("role") != null) {
-					switch (jsonDetails.get("role").asText()) {
+				String userRole = jsonDetails.get("userDetails").get("role").asText();
+				if (jsonDetails.get("personDetails") != null && userRole != null) {
+					switch (userRole) {
 						case "CUSTOMER":
 							Customer newCustomer = mapper.treeToValue(jsonDetails.get("personDetails"), Customer.class);
 							newCustomer.setUser_id(newUser.get().getId());
