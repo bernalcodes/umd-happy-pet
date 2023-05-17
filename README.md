@@ -200,6 +200,7 @@ Minuto de Dios University Corporation, 2023
 					"address": "Test Address for Test Customer"
 				}
 				```
+				
 			-	`/customers/new/list` via `POST` method
 				-	The body should be a list of Customer-type objects
 				-	The expected response should look like the following:
@@ -262,6 +263,7 @@ Minuto de Dios University Corporation, 2023
 					"professional_card": "123456789"
 				}
 				```
+
 			-	`/vets/new/list` via `POST` method
 				-	The body should be a list of Veterinary-type objects
 				-	The expected response should look like the following:
@@ -324,6 +326,7 @@ Minuto de Dios University Corporation, 2023
 					"pet_pic": "{base64String}"
 				}
 				```
+
 			-	`/pets/new/list` via `POST` method
 				-	The body should be a list of Pet-type objects
 				-	The expected response should look like the following:
@@ -381,7 +384,7 @@ Minuto de Dios University Corporation, 2023
 -	There are available the following endpoints per operation:
 	-	`CREATE`
 			-	`/visits/new` via `POST` method with the following request body:
-			
+
 				```
 				{
 					"pet_id": "{petId}",
@@ -395,6 +398,7 @@ Minuto de Dios University Corporation, 2023
 					"recommendation": "{vetRecommendation}"
 				}
 				```
+
 			-	`/visits/new/list` via `POST` method
 				-	The body should be a list of Visit-type objects
 				-	The expected response should look like the following:
