@@ -3,6 +3,9 @@ import React, { Fragment } from "react";
 import VetOverviewLayout from "../VetOverviewLayout/VetOverviewLayout";
 import { CustomersDataContext, useCustomers } from "@/context/CustomersContext";
 import users from "../../data/users.json" assert { type: "JSON" };
+import { motion } from "framer-motion";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
 const VetOverviewPetsItem = ({ pet }: { pet: Pet }) => {
   return (
@@ -63,6 +66,24 @@ const VetOverviewCustomerItem = ({
   );
 };
 
+const VetOverviewDateItem = () => {
+  return (
+    <motion.div className="flex justify-between gap-2 rounded-xl p-1">
+      <div className="flex items-center gap-2">
+        <FontAwesomeIcon icon={faCalendar} />
+        <div>
+          <h3 className="text-lg font-medium">Date with Andres</h3>
+          <p className="text-sm text-blue-gray-400">
+            <span className="font-medium">34 Sep 2023</span>
+            <span> (3 days ago)</span>
+          </p>
+        </div>
+      </div>
+      <div>img customer</div>
+    </motion.div>
+  );
+};
+
 const VetOverviewCard = () => {
   const { customers }: CustomersDataContext = useCustomers();
 
@@ -84,6 +105,14 @@ const VetOverviewCard = () => {
         ))}
         <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
           See all customers
+        </div>
+      </VetOverviewLayout>
+      <VetOverviewLayout title="Dates">
+        {[1, 2, 3].map((item) => (
+          <VetOverviewDateItem key={item} />
+        ))}
+        <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
+          See all dates
         </div>
       </VetOverviewLayout>
     </Fragment>

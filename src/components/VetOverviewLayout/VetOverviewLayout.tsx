@@ -10,7 +10,7 @@ const VetOverviewLayout = ({
   children: React.ReactNode;
 }) => {
   return (
-    <div className="w-fit rounded-md bg-white px-6 py-5 shadow-md lg:min-w-[400px]">
+    <div className="w-fit rounded-xl bg-white px-6 py-5 shadow-md lg:min-w-[400px]">
       <button className="flex items-center gap-2 pb-6 font-semibold text-blue-gray-400 hover:underline">
         <p className="text-lg font-normal">{title}</p>
         <FontAwesomeIcon
