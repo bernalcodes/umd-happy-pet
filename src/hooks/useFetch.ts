@@ -65,9 +65,8 @@ export const useFetch = () => {
     try {
       const res = await fetch(`${BASE_URL}/login`, {
         method: "POST",
-        mode: "no-cors",
-        headers: getHeaders(),
         body,
+        headers: getHeaders(),
       });
       console.log({ res });
       const dataRes = (await res?.text()) || (await res?.json());
