@@ -121,7 +121,7 @@ export default function ModalAddCustomer(): JSX.Element {
                 <h4 className="mb-2 text-lg font-medium text-gray-900">
                   Pet list
                 </h4>
-                <div className="flex w-full gap-4 overflow-x-scroll">
+                <div className="flex w-full gap-4 overflow-x-auto">
                   {newCustomer.pet_list.length === 0 && (
                     <p className="text-gray-500">Add at least one pet</p>
                   )}

@@ -49,11 +49,11 @@ const Step2 = ({ register, errors, handleInputChange }: PropsComponent) => {
             placeholder="Enter a password"
             {...register("password", {
               required: { value: true, message: "Password is required" },
-              pattern: {
-                value:
-                  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[a-zA-Z]).{8,}$/,
-                message: "The password is very weak 😔",
-              },
+              // pattern: {
+              //   value:
+              //     /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?])(?=.*[a-zA-Z]).{8,}$/,
+              //   message: "The password is very weak 😔",
+              // },
               validate: (_) => {
                 if (password !== confirmPassword) {
                   return "Passwords do not match";

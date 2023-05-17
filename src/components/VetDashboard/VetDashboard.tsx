@@ -4,17 +4,29 @@ import { useModal } from "@/hooks/useModal";
 import Aside from "../Aside/Aside";
 import NavbarDashboard from "../NavbarDashboard/NavbarDashboard";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCirclePlus } from "@fortawesome/free-solid-svg-icons";
+import {
+  faCalendar,
+  faCat,
+  faCirclePlus,
+} from "@fortawesome/free-solid-svg-icons";
 import VetOverviewCard from "../VetOverviewCard/VetOverviewCard";
 import Modal from "../Modal/Modal";
 import ModalAddCustomer from "../ModalAddCustomer/ModalAddCustomer";
 import ModalAddPet from "@/components/ModalAddPet/ModalAddPet";
+import {
+  Popover,
+  PopoverHandler,
+  PopoverContent,
+  Button,
+} from "@material-tailwind/react";
+import { ModalCreateDate } from "@/components/ModalCreateDate/ModalCreateDate";
 
 const VetDashboard = () => {
   const [isOpenAddCustomer, openAddCustomer, closeAddCustomer] =
     useModal(false);
   const [isOpenMenu, openMenu, closeMenu] = useModal(false);
   const [isOpenAddPet, openAddPet, closeAddPet] = useModal(false);
+  const [isOpenDate, openDate, closeDate] = useModal(false);
 
   return (
     <div className="flex flex-row bg-happy-grey-blue">
@@ -45,8 +57,29 @@ const VetDashboard = () => {
                   onClick={openAddPet}
                   className="flex items-center gap-2 rounded-md border border-solid border-transparent bg-happy-color-primary px-4 py-[6px] text-white transition-colors hover:border-happy-color-primary hover:bg-happy-color-primary-light"
                 >
+                  <FontAwesomeIcon icon={faCat} />
                   Add Pet
                 </button>
+                <Popover
+                  placement="left-start"
+                  animate={{
+                    mount: { scale: 1, y: 0 },
+                    unmount: { scale: 0, y: 25 },
+                  }}
+                >
+                  <PopoverHandler>
+                    <button
+                      onClick={openDate}
+                      className="flex items-center gap-2 rounded-md border border-solid border-transparent bg-happy-color-primary px-4 py-[6px] text-white transition-colors hover:border-happy-color-primary hover:bg-happy-color-primary-light"
+                    >
+                      <FontAwesomeIcon icon={faCalendar} />
+                      Create date
+                    </button>
+                  </PopoverHandler>
+                  <PopoverContent>
+                    <ModalCreateDate />
+                  </PopoverContent>
+                </Popover>
               </div>
             </div>
             <div className="overviews flex gap-6">

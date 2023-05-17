@@ -6,14 +6,18 @@ import Step2 from "../Steps/Step2/Step2";
 import { SubmitHandler, useForm } from "react-hook-form";
 import Form from "@/interfaces/Form";
 import Image from "next/image";
-import { Backdrop, CircularProgress } from "@mui/material";
+
+import { useFetch } from "@/hooks/useFetch";
+
+import { Ring } from "@uiball/loaders";
+import { useRouter } from "next/router";
 
 const initialForm: Form = {
   name: "",
   lastName: "",
   email: "",
   password: "",
-  typeUser: "",
+  role: "",
   phoneNumber: 0,
   address: "",
   cardNumber: "",
@@ -26,20 +30,31 @@ const FormCardSignUp = () => {
   const [form, setForm] = useState<Form>(initialForm);
   const [additionalField, setAdditionalField] = useState<string>("");
   const [typeUserSelected, setTypeUserSelected] = useState(typeUsers[0]);
+  const [loading, setLoading] = useState(false);
+  const { createUser } = useFetch();
+  const navigate = useRouter();
 
-  // const {
-  // 	hookForm: { handleSubmit, onSubmit },
-  // 	methods: { nextStep, prevStep },
-  // 	state: { step },
-  // } = useSignUpForm();
-
-  const onSubmit: SubmitHandler<Form> = (data: Form) => {
+  const onSubmit: SubmitHandler<Form> = async (data: Form) => {
     if (typeUserSelected === typeUsers[0]) {
       delete data.cardNumber;
     } else {
       delete data.address;
     }
-    console.log(data);
+    try {
+      setLoading(true);
+      const createdUser = await createUser(form);
+      if (createdUser.success) {
+        console.log({ createdUser });
+        navigate.push("/login");
+      } else {
+        const error = JSON.parse(createdUser?.message);
+        console.log({ errorCreateUser: error });
+      }
+    } catch (err) {
+      console.log({ err });
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -63,7 +78,7 @@ const FormCardSignUp = () => {
   useEffect(() => {
     setForm((prevState) => ({
       ...prevState,
-      typeUser: typeUserSelected,
+      role: typeUserSelected,
     }));
     if (typeUserSelected === typeUsers[0]) {
       setAdditionalField("address");
@@ -149,11 +164,16 @@ const FormCardSignUp = () => {
               >
                 Back
               </button>
-              <input
+              <button
                 type="submit"
-                value="Continue"
-                className="button-style-primary"
-              />
+                disabled={loading}
+                className="button-style-primary flex items-center gap-2"
+              >
+                {loading && (
+                  <Ring size={18} lineWeight={5} speed={2} color="white" />
+                )}
+                <p>Continue</p>
+              </button>
             </>
           )}
         </div>
