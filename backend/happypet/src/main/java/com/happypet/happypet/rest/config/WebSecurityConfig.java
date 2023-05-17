@@ -32,8 +32,8 @@ public class WebSecurityConfig {
 		jwtAuthenticationFilter.setAuthenticationManager(authManager);
 		jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 		return http
+				.cors().and()
 				.csrf().disable()
-				.cors().disable()
 				.authorizeHttpRequests()
 				.requestMatchers("/users/new").permitAll()
 				.anyRequest()
@@ -65,10 +65,11 @@ public class WebSecurityConfig {
 	@Bean
 	public WebMvcConfigurer corsConfigurer() {
 		return new WebMvcConfigurer() {
+
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE")
-						.allowedOrigins("*")
+						.allowedOrigins("http://localhost:3000")
 						.allowedHeaders("*");
 			}
 		};
