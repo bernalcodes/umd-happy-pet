@@ -13,6 +13,8 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.AllArgsConstructor;
 
@@ -31,6 +33,7 @@ public class WebSecurityConfig {
 		jwtAuthenticationFilter.setFilterProcessesUrl("/login");
 		return http
 				.csrf().disable()
+				.cors().disable()
 				.authorizeHttpRequests()
 				.requestMatchers("/users/new").permitAll()
 				.anyRequest()
@@ -57,5 +60,17 @@ public class WebSecurityConfig {
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
+	}
+
+	@Bean
+	public WebMvcConfigurer corsConfigurer() {
+		return new WebMvcConfigurer() {
+			@Override
+			public void addCorsMappings(CorsRegistry registry) {
+				registry.addMapping("/**").allowedMethods("GET", "POST", "PUT", "DELETE")
+						.allowedOrigins("*")
+						.allowedHeaders("*");
+			}
+		};
 	}
 }
