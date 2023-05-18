@@ -35,8 +35,10 @@ const VetOverviewPetsItem = ({ pet }: { pet: Pet }) => {
 
 const VetOverviewCustomerItem = ({
   customer,
+  image,
 }: {
   customer: Customer | any;
+  image: any;
 }) => {
   return (
     <div className="group flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
@@ -47,7 +49,7 @@ const VetOverviewCustomerItem = ({
           </span>
           <Image
             //src="https://placeimg.com/200/200/any"
-            src={customer.image}
+            src={`${image}`}
             className="h-11 w-11 rounded-xl shadow-md"
             height={200}
             width={200}
@@ -56,9 +58,9 @@ const VetOverviewCustomerItem = ({
         </div>
         <div className="flex flex-col">
           <p className="font-normal group-hover:text-happy-color-primary group-hover:underline">
-            {customer.firstName}
+            {customer.email}
           </p>
-          <p className="text-blue-gray-400">{customer.address.address}</p>
+          <p className="text-blue-gray-400">{"customer.address.address"}</p>
         </div>
       </div>
       <p className="text-blue-gray-700">4 pets</p>
@@ -85,9 +87,7 @@ const VetOverviewDateItem = () => {
 };
 
 const VetOverviewCard = () => {
-  const { customers }: CustomersDataContext = useCustomers();
-
-  console.log(users);
+  const { customers } = useCustomers();
 
   return (
     <Fragment>
@@ -100,9 +100,16 @@ const VetOverviewCard = () => {
         </div>
       </VetOverviewLayout>
       <VetOverviewLayout title="Customers">
-        {users.slice(0, 3).map((customer, index) => (
-          <VetOverviewCustomerItem customer={customer} key={index} />
-        ))}
+        {customers.slice(0, 3).map((customer, index) => {
+          let parseImage = `data:image/png;base64, ${customer.profile_pic}`;
+          return (
+            <VetOverviewCustomerItem
+              customer={customer}
+              key={index}
+              image={parseImage}
+            />
+          );
+        })}
         <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
           See all customers
         </div>

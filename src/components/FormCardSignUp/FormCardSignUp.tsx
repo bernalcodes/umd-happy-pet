@@ -42,7 +42,7 @@ const FormCardSignUp = () => {
     }
     try {
       setLoading(true);
-      const createdUser = await createUser(form);
+      const createdUser = await createUser(form, "VETERINARY");
       if (createdUser.success) {
         console.log({ createdUser });
         navigate.push("/login");
