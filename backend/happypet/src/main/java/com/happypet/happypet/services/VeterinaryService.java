@@ -55,10 +55,10 @@ public class VeterinaryService {
 	}
 
 	// UPDATE Veterinary
-	public void updateVet(Veterinary vet) {
+	public void updateVet(Veterinary vet) throws Exception {
 		Optional<Veterinary> v = veterinaryRepository.findById(vet.getId());
 		if (!v.isPresent())
-			throw new RuntimeException("Veterinary was not found");
+			throw new Exception("Veterinary was not found");
 		veterinaryRepository.save(vet);
 	}
 
@@ -66,7 +66,7 @@ public class VeterinaryService {
 	public void deleteVet(String vet_id) throws Exception {
 		Optional<Veterinary> v = veterinaryRepository.findById(vet_id);
 		if (!v.isPresent())
-			throw new RuntimeException("Veterinary was not found");
+			throw new Exception("Veterinary was not found");
 		veterinaryRepository.deleteById(vet_id);
 	}
 }

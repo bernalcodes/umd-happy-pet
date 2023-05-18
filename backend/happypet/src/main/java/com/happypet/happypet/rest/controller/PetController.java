@@ -108,14 +108,11 @@ public class PetController {
 		try {
 			List<Pet> petList = petService.readAllPets();
 			ArrayNode petNodeArray = mapper.createArrayNode();
-
 			for (Pet pet : petList) {
 				ObjectNode petNode = mapper.valueToTree(pet);
 				petNodeArray.add(petNode);
 			}
-
-			JsonNode response = mapper.createObjectNode().set("petList", petNodeArray);
-			return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+			return new ResponseEntity<>(petNodeArray.toString(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
 			e.printStackTrace();
