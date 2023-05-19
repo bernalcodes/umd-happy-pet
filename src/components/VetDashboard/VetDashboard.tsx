@@ -35,7 +35,7 @@ const VetDashboard = () => {
   console.log({ user });
 
   return (
-    <div className="flex flex-row bg-happy-grey-blue">
+    <div className="flex flex-row bg-happy-grey-blue overflow-y-hidden">
       <Modal open={isOpenAddCustomer} closeModal={closeAddCustomer}>
         <ModalAddCustomer closeModal={closeAddCustomer} />
       </Modal>

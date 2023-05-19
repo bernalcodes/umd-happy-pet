@@ -11,12 +11,14 @@ import { useFetch } from "@/hooks/useFetch";
 export interface CustomersDataContext {
   customers: any;
   handleRefreshUsers: any;
+  visits: any
   pets: any;
 }
 
 const initialCustomersDataContext: CustomersDataContext = {
   customers: [],
   handleRefreshUsers: () => {},
+  visits: [],
   pets: [],
 };
 
@@ -29,9 +31,10 @@ export const useCustomers = (): CustomersDataContext =>
 const CustomersProvider = ({ children }: { children: React.ReactNode }) => {
   const [customers, setCustomers] = useState([]);
   const [pets, setPets] = useState([]);
+  const [visits, setVisits] = useState([]);
   const [refreshListUsers, setRefreshListUsers] = useState(false);
   const { user, authData } = useCustomer();
-  const { getAllUsers, getAllPets } = useFetch();
+  const { getAllUsers, getAllPets, getAllVisits } = useFetch();
 
   const handleRefreshUsers = () => {
     setRefreshListUsers(!refreshListUsers);
@@ -39,9 +42,10 @@ const CustomersProvider = ({ children }: { children: React.ReactNode }) => {
 
   useEffect(() => {
     const getUsers = async () => {
+
+		console.log({usersss: user})
       if (user) {
         const userList = await getAllUsers(authData?.Authorization);
-        console.log({ userList });
         if (userList?.success) {
           setCustomers(userList?.data);
         } else {
@@ -49,22 +53,31 @@ const CustomersProvider = ({ children }: { children: React.ReactNode }) => {
           const error = JSON.parse(userList?.message);
           console.log(error);
         }
-        const petsList = await getAllPets(user.id, authData.Authorization);
+        const petsList = await getAllPets(user.userDetails.id, authData.Authorization);
         if (petsList?.success) {
           //@ts-ignore
-          setPets(petsList?.data.petList);
+          setPets(petsList?.data);
         } else {
           //@ts-ignore
-          const error = JSON.parse(petsList?.message);
+          const error = JSON?.parse(petsList?.message);
           console.log(error);
         }
+		const listVisits = await getAllVisits(authData.Authorization);
+		if (listVisits?.success) {
+			//@ts-ignore
+			setVisits(listVisits?.data);
+		  } else {
+			//@ts-ignore
+			const error = JSON?.parse(listVisits?.message);
+			console.log(error);
+		  }
       }
     };
     getUsers();
   }, [user, refreshListUsers]);
 
   return (
-    <CustomersContext.Provider value={{ customers, pets, handleRefreshUsers }}>
+    <CustomersContext.Provider value={{ customers, pets, handleRefreshUsers, visits }}>
       {children}
     </CustomersContext.Provider>
   );

@@ -56,7 +56,7 @@ export default function ModalAddPet({ closeModal }): JSX.Element {
   };
 
   const filteredCustomers = customers.filter((user) => {
-    const fullName = `${user.email}`.toLowerCase();
+    const fullName = `${user.userDetails.email}`.toLowerCase();
     return fullName.includes(search.toLowerCase());
   });
 
@@ -64,7 +64,7 @@ export default function ModalAddPet({ closeModal }): JSX.Element {
     const petCreated = await createNewPet(
       authData.Authorization,
       newPet,
-      selectedCustomer?.id
+      selectedCustomer?.personDetails.id
     );
     console.log({ petCreated });
     handleRefreshUsers();
@@ -186,18 +186,18 @@ export default function ModalAddPet({ closeModal }): JSX.Element {
                   animate="visible"
                   exit="hidden"
                 >
-                  <div className="flex items-end gap-2">
+                  <div className="flex items-end flex-wrap gap-2">
                     <motion.div variants={item}>
                       <Image
-                        src={`data:image/png;base64, ${selectedCustomer?.profile_pic}`}
-                        className="h-11 w-11 rounded-xl shadow-md"
+                        src={`data:image/png;base64, ${selectedCustomer?.userDetails.profile_pic}`}
+                        className="h-11 w-11 min-w-[40px] rounded-xl shadow-md"
                         height={200}
                         width={200}
                         alt="any"
                       />
                     </motion.div>
-                    <motion.h3 variants={item} className="text-2xl font-medium">
-                      {selectedCustomer?.email}
+                    <motion.h3 variants={item} className="text-xl font-medium">
+                      {selectedCustomer?.userDetails.email}
                     </motion.h3>
                   </div>
                   <motion.p variants={item} className="mt-2 text-sm">
@@ -236,16 +236,16 @@ export default function ModalAddPet({ closeModal }): JSX.Element {
               >
                 <div className="flex items-center gap-2">
                   <Image
-                    src={`data:image/png;base64, ${customer.profile_pic}`}
+                    src={`data:image/png;base64, ${customer.userDetails.profile_pic}`}
                     className="h-11 w-11 rounded-xl shadow-md"
                     height={200}
                     width={200}
                     alt="any"
                   />
                   <div className="flex flex-col">
-                    <h2>{customer.email}</h2>
+                    <h2>{customer.userDetails.email}</h2>
                     <div className="text-sm text-blue-gray-400">
-                      {customer.id}
+                      {customer.personDetails.id}
                     </div>
                   </div>
                 </div>

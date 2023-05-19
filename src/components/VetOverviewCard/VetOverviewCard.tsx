@@ -3,7 +3,7 @@ import React, { Fragment } from "react";
 import VetOverviewLayout from "../VetOverviewLayout/VetOverviewLayout";
 import { CustomersDataContext, useCustomers } from "@/context/CustomersContext";
 import users from "../../data/users.json" assert { type: "JSON" };
-import { motion } from "framer-motion";
+import { calcLength, motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 import {
@@ -23,7 +23,10 @@ const VetOverviewPetsItem = ({
   key: number;
 }) => {
   const { customers } = useCustomers();
-  const owner = customers.filter((customer) => customer.id === pet?.owner_id);
+  console.log({pet})
+  const owner = customers.filter((customer) => customer.personDetails.id === pet?.owner_id);
+
+  console.log({owner})
 
   return (
     <div
@@ -46,7 +49,7 @@ const VetOverviewPetsItem = ({
             </p>
             <p className="text-blue-gray-400">{pet?.specs}</p>
           </div>
-          <p>Owner: {owner[0]?.email}</p>
+          <p>Owner: {owner[0]?.userDetails.email}</p>
         </div>
       </div>
       <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 hover:underline">
@@ -63,6 +66,7 @@ const VetOverviewCustomerItem = ({
   customer: Customer | any;
   image: any;
 }) => {
+	console.log({customer})
   return (
     <div className="group flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
       <div className="flex items-center gap-2 ">
@@ -81,7 +85,7 @@ const VetOverviewCustomerItem = ({
         </div>
         <div className="flex flex-col">
           <p className="font-normal group-hover:text-happy-color-primary group-hover:underline">
-            {customer.email}
+            {customer.personDetails.name}
           </p>
           <p className="text-blue-gray-400">{"customer.address.address"}</p>
         </div>
@@ -109,13 +113,22 @@ const VetOverviewDateItem = () => {
   );
 };
 
+function parsearFecha(cadenaFecha) {
+	var fecha = new Date(cadenaFecha);
+	var año = fecha.getFullYear();
+	var mes = fecha.getMonth() + 1; // Los meses en JavaScript comienzan en 0, por lo que se suma 1
+	var dia = fecha.getDate();
+  
+	return año + "-" + mes + "-" + dia;
+  }
+
 const VetOverviewCard = () => {
-  const { customers, pets } = useCustomers();
-  console.log({ pets });
+  const { customers, pets, visits } = useCustomers();
+  console.log({ visits })
   return (
     <Fragment>
       <VetOverviewLayout title="Pets">
-        {pets.slice(0, 3).map((pet, index) => {
+        {pets?.map((pet, index) => {
           let parseImage = `data:image/png;base64, ${pet.pet_pic}`;
           return (
             <VetOverviewPetsItem
@@ -126,13 +139,10 @@ const VetOverviewCard = () => {
             />
           );
         })}
-        <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
-          See all pets
-        </div>
       </VetOverviewLayout>
       <VetOverviewLayout title="Customers">
-        {customers.slice(0, 3).map((customer, index) => {
-          let parseImage = `data:image/png;base64, ${customer.profile_pic}`;
+        {customers?.map((customer, index) => {
+          let parseImage = `data:image/png;base64, ${customer.userDetails.profile_pic}`;
           return (
             <VetOverviewCustomerItem
               customer={customer}
@@ -141,17 +151,21 @@ const VetOverviewCard = () => {
             />
           );
         })}
-        <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
-          See all customers
-        </div>
       </VetOverviewLayout>
       <VetOverviewLayout title="Dates">
-        {/*{[1, 2, 3].map((item) => (*/}
-        {/*  */}
-        {/*))}*/}
-        <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
-          See all dates
-        </div>
+		{visits?.map((visit, index) => {
+				return(
+					<div className="flex gap-3 items-center">
+						<FontAwesomeIcon icon={faCalendar} className="text-2xl text-happy-blue"/>
+						<div className="flex flex-col">
+						<p>Appointment date:</p>
+						<h2 className="text-sm">{parsearFecha(visit.date)}</h2>
+					</div>
+					</div>
+					
+				)
+		})}
+        
       </VetOverviewLayout>
     </Fragment>
   );
