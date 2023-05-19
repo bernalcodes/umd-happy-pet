@@ -7,6 +7,9 @@ import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
 import { useFetch } from "@/hooks/useFetch";
 import { useCustomer } from "@/context/UserContext";
+import { DotPulse } from "@uiball/loaders";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 const initialPet: Pet = {
   age: "",
@@ -16,13 +19,15 @@ const initialPet: Pet = {
   name: "",
 };
 
-export default function ModalAddPet(): JSX.Element {
+export default function ModalAddPet({ closeModal }): JSX.Element {
   const [newPet, setNewPet] = useState<Pet>(initialPet);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [search, setSearch] = useState("");
+  const [petAdded, setPetAdded] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const { createNewPet } = useFetch();
-  const { customers } = useCustomers();
+  const { customers, handleRefreshUsers } = useCustomers();
   const { authData } = useCustomer();
 
   const handleClickCustomer = (customer) => {
@@ -59,9 +64,11 @@ export default function ModalAddPet(): JSX.Element {
     const petCreated = await createNewPet(
       authData.Authorization,
       newPet,
-      authData.id
+      selectedCustomer?.id
     );
     console.log({ petCreated });
+    handleRefreshUsers();
+    closeModal();
   };
 
   const container = {
@@ -131,6 +138,9 @@ export default function ModalAddPet(): JSX.Element {
                 <div className="flex gap-3">
                   <Input label="Breed" name="breed" onChange={handleChange} />
                   <button
+                    className={`button-style-primary flex items-center gap-3 whitespace-nowrap !p-2 !px-5 ${
+                      petAdded ? "gap-2 !bg-happy-green" : ""
+                    }`}
                     onClick={() => {
                       handleAddPet(uuid());
                     }}
@@ -139,13 +149,21 @@ export default function ModalAddPet(): JSX.Element {
                       newPet.age === "" ||
                       newPet.breed === ""
                     }
-                    className="whitespace-nowrap rounded-lg bg-happy-color-primary px-6 py-2 normal-case text-white transition-colors hover:bg-happy-color-primary-light"
                   >
-                    Add pet
+                    {loading && (
+                      <DotPulse size={20} speed={1.3} color="white" />
+                    )}
+                    {petAdded && (
+                      <FontAwesomeIcon
+                        icon={faCircleCheck}
+                        className="text-[18px]"
+                      />
+                    )}
+                    <p>{petAdded ? "Done!" : "Add Pet"}</p>
                   </button>
                   <button
                     onClick={() => setNewPet(initialPet)}
-                    className="whitespace-nowrap rounded-lg bg-happy-color-primary px-6 py-2 normal-case text-white transition-colors hover:bg-happy-color-primary-light"
+                    className="button-style-primary whitespace-nowrap"
                   >
                     Clear
                   </button>

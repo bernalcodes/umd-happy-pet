@@ -9,7 +9,7 @@ interface Login {
 export const useFetch = () => {
   const getHeaders = (
     authToken: string = "",
-    contentType: string = "cation/json"
+    contentType: string = "application/json"
   ) => {
     const headers = new Headers();
     headers.append("Content-Type", contentType);
@@ -161,7 +161,7 @@ export const useFetch = () => {
         owner_id: ownerId,
         pet_pic: data.img,
       });
-      console.log({ body });
+      console.log(JSON.parse(body));
       const res = await fetch(`${BASE_URL}/pets/new`, {
         method: "POST",
         body,
@@ -180,9 +180,33 @@ export const useFetch = () => {
   const getAllPets = async (idUser: string, authToken: string) => {
     try {
       const res = await fetch(`${BASE_URL}/pets/all`, {
-        method: "get",
+        method: "GET",
         headers: getHeaders(authToken, idUser),
       });
+      const dataRes = await res.json();
+      if (!res.ok) {
+        throw new Error(JSON.stringify({ status: res.status, json: dataRes }));
+      }
+      return { success: true, data: dataRes };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const createDate = async (authToken: string, data: {}) => {
+    try {
+      const body = JSON.stringify({
+        pet_id: data?.owner_id,
+        date: data?.date,
+      });
+
+      console.log({ body });
+      const res = await fetch(`${BASE_URL}/visits/new`, {
+        method: "POST",
+        body,
+        headers: getHeaders(authToken),
+      });
+
       const dataRes = await res.json();
       if (!res.ok) {
         throw new Error(JSON.stringify({ status: res.status, json: dataRes }));
@@ -201,5 +225,6 @@ export const useFetch = () => {
     getAllUsers,
     createNewPet,
     getAllPets,
+    createDate,
   };
 };
