@@ -7,9 +7,12 @@ interface Login {
   password: string;
 }
 export const useFetch = () => {
-  const getHeaders = (authToken: string = "") => {
+  const getHeaders = (
+    authToken: string = "",
+    contentType: string = "cation/json"
+  ) => {
     const headers = new Headers();
-    headers.append("Content-Type", "application/json");
+    headers.append("Content-Type", contentType);
     headers.append("Authorization", `${authToken}`);
     return headers;
   };
@@ -174,6 +177,22 @@ export const useFetch = () => {
     }
   };
 
+  const getAllPets = async (idUser: string, authToken: string) => {
+    try {
+      const res = await fetch(`${BASE_URL}/pets/all`, {
+        method: "get",
+        headers: getHeaders(authToken, idUser),
+      });
+      const dataRes = await res.json();
+      if (!res.ok) {
+        throw new Error(JSON.stringify({ status: res.status, json: dataRes }));
+      }
+      return { success: true, data: dataRes };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return {
     createUser,
     login,
@@ -181,5 +200,6 @@ export const useFetch = () => {
     vetAddCustomer,
     getAllUsers,
     createNewPet,
+    getAllPets,
   };
 };
