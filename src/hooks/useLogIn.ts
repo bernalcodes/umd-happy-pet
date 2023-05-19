@@ -13,6 +13,7 @@ export const useLogIn = () => {
   });
 
   const { login } = useFetch();
+  const { refreshAuth } = useCustomer();
 
   const {
     register,
@@ -22,7 +23,6 @@ export const useLogIn = () => {
   } = useForm<LoginInterface>();
 
   const router = useRouter();
-  const { setUser } = useCustomer();
 
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
@@ -41,6 +41,7 @@ export const useLogIn = () => {
       if (loggedUser?.success) {
         console.log(loggedUser?.data);
         localStorage.setItem(`auth-token`, JSON.stringify(loggedUser?.data));
+        refreshAuth();
         router.push("vet/dashboard");
       }
     } catch (err) {

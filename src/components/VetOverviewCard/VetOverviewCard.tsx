@@ -6,16 +6,30 @@ import users from "../../data/users.json" assert { type: "JSON" };
 import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
+import {
+  Popover,
+  PopoverContent,
+  PopoverHandler,
+} from "@material-tailwind/react";
+import { ModalCreateDate } from "@/components/ModalCreateDate/ModalCreateDate";
 
-const VetOverviewPetsItem = ({ pet, image }: { pet: Pet; image: string }) => {
+const VetOverviewPetsItem = ({
+  pet,
+  image,
+  key,
+}: {
+  pet: Pet;
+  image: string;
+  key: number;
+}) => {
   const { customers } = useCustomers();
-
   const owner = customers.filter((customer) => customer.id === pet?.owner_id);
 
-  console.log(owner);
-
   return (
-    <div className="group flex cursor-pointer items-center justify-between gap-5">
+    <div
+      className="group flex cursor-pointer items-center justify-between gap-5"
+      key={key}
+    >
       <div className="flex items-center gap-2">
         <Image
           // @ts-ignore
@@ -26,11 +40,13 @@ const VetOverviewPetsItem = ({ pet, image }: { pet: Pet; image: string }) => {
           alt="any"
         />
         <div className="flex flex-col">
-          <p className="font-normal group-hover:text-happy-color-primary group-hover:underline">
-            {pet.name}
-          </p>
-          <p className="text-blue-gray-400">{pet.owner_id}</p>
-          <p>Owner: {owner[0].firstName}</p>
+          <div className="flex gap-2">
+            <p className="font-normal group-hover:text-happy-color-primary group-hover:underline">
+              {pet.name}
+            </p>
+            <p className="text-blue-gray-400">{pet?.specs}</p>
+          </div>
+          <p>Owner: {owner[0]?.email}</p>
         </div>
       </div>
       <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 hover:underline">
@@ -130,9 +146,9 @@ const VetOverviewCard = () => {
         </div>
       </VetOverviewLayout>
       <VetOverviewLayout title="Dates">
-        {[1, 2, 3].map((item) => (
-          <VetOverviewDateItem key={item} />
-        ))}
+        {/*{[1, 2, 3].map((item) => (*/}
+        {/*  */}
+        {/*))}*/}
         <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
           See all dates
         </div>

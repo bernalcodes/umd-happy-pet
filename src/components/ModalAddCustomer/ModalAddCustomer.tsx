@@ -18,7 +18,7 @@ const initialCustomer: Customer = {
   phone_number: "",
 };
 
-export default function ModalAddCustomer(): JSX.Element {
+export default function ModalAddCustomer({ closeModal }): JSX.Element {
   const [openAccordion, setOpenAccordion] = useState<number>(0);
   const [newCustomer, setNewCustomer] = useState<Customer>(initialCustomer);
 
@@ -66,6 +66,7 @@ export default function ModalAddCustomer(): JSX.Element {
     if (customerCreated?.success) {
       console.log({ customerCreated });
       handleRefreshUsers();
+      closeModal();
     } else {
       const error = JSON.parse(customerCreated?.message);
       console.log(error);

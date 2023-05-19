@@ -11,12 +11,14 @@ export interface UserProvider {
   user: any;
   setUser: any;
   authData: any;
+  refreshAuth: any;
 }
 
 const initialCustomersDataContext: UserProvider = {
   user: {},
   setUser: () => {},
   authData: {},
+  refreshAuth: () => {},
 };
 
 const UserContext: Context<UserProvider> = createContext<UserProvider>(
@@ -28,7 +30,12 @@ export const useCustomer = (): UserProvider => useContext(UserContext);
 const UserProvider = ({ children }: { children: React.ReactNode }) => {
   const [user, setUser] = useState(null);
   const [authData, setAuthData] = useState(null);
+  const [refresh, setRefresh] = useState(false);
   const { login, getUser } = useFetch();
+
+  const refreshAuth = () => {
+    setRefresh(!refresh);
+  };
 
   useEffect(() => {
     const detectUser = async () => {
@@ -45,10 +52,10 @@ const UserProvider = ({ children }: { children: React.ReactNode }) => {
       }
     };
     detectUser();
-  }, []);
+  }, [refresh]);
 
   return (
-    <UserContext.Provider value={{ user, setUser, authData }}>
+    <UserContext.Provider value={{ user, setUser, authData, refreshAuth }}>
       {children}
     </UserContext.Provider>
   );

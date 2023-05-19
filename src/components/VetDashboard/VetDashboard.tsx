@@ -37,10 +37,10 @@ const VetDashboard = () => {
   return (
     <div className="flex flex-row bg-happy-grey-blue">
       <Modal open={isOpenAddCustomer} closeModal={closeAddCustomer}>
-        <ModalAddCustomer />
+        <ModalAddCustomer closeModal={closeAddCustomer} />
       </Modal>
       <Modal open={isOpenAddPet} closeModal={closeAddPet}>
-        <ModalAddPet />
+        <ModalAddPet closeModal={closeAddPet} />
       </Modal>
 
       <Aside open={isOpenMenu} closeMenu={closeMenu} />
