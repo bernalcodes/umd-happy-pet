@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 import com.happypet.happypet.domain.Visit;
 import com.happypet.happypet.services.VisitService;
@@ -109,7 +110,13 @@ public class VisitController {
 	@GetMapping("/all")
 	public ResponseEntity<String> readVisits() {
 		try {
-
+			List<Visit> visitList = visitService.readAllVisits();
+			ArrayNode visitNodeList = mapper.createArrayNode();
+			for (Visit visit : visitList) {
+				ObjectNode visitNode = mapper.valueToTree(visit);
+				visitNodeList.add(visitNode);
+			}
+			return new ResponseEntity<>(visitNodeList.toString(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
 			e.printStackTrace();
