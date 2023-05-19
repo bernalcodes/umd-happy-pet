@@ -7,13 +7,19 @@ import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendar } from "@fortawesome/free-solid-svg-icons";
 
-const VetOverviewPetsItem = ({ pet }: { pet: Pet }) => {
+const VetOverviewPetsItem = ({ pet, image }: { pet: Pet; image: string }) => {
+  const { customers } = useCustomers();
+
+  const owner = customers.filter((customer) => customer.id === pet?.owner_id);
+
+  console.log(owner);
+
   return (
     <div className="group flex cursor-pointer items-center justify-between gap-5">
       <div className="flex items-center gap-2">
         <Image
           // @ts-ignore
-          src={pet.img}
+          src={image}
           className="h-11 w-11 rounded-xl shadow-md"
           height={200}
           width={200}
@@ -23,7 +29,8 @@ const VetOverviewPetsItem = ({ pet }: { pet: Pet }) => {
           <p className="font-normal group-hover:text-happy-color-primary group-hover:underline">
             {pet.name}
           </p>
-          <p className="text-blue-gray-400">{pet.breed}</p>
+          <p className="text-blue-gray-400">{pet.owner_id}</p>
+          <p>Owner: {owner[0].firstName}</p>
         </div>
       </div>
       <span className="inline-flex items-center rounded-md bg-blue-50 px-2 py-1 text-xs font-medium text-blue-700 ring-1 ring-inset ring-blue-700/10 hover:underline">
@@ -35,8 +42,10 @@ const VetOverviewPetsItem = ({ pet }: { pet: Pet }) => {
 
 const VetOverviewCustomerItem = ({
   customer,
+  image,
 }: {
   customer: Customer | any;
+  image: any;
 }) => {
   return (
     <div className="group flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
@@ -47,7 +56,7 @@ const VetOverviewCustomerItem = ({
           </span>
           <Image
             //src="https://placeimg.com/200/200/any"
-            src={customer.image}
+            src={`${image}`}
             className="h-11 w-11 rounded-xl shadow-md"
             height={200}
             width={200}
@@ -56,9 +65,9 @@ const VetOverviewCustomerItem = ({
         </div>
         <div className="flex flex-col">
           <p className="font-normal group-hover:text-happy-color-primary group-hover:underline">
-            {customer.firstName}
+            {customer.email}
           </p>
-          <p className="text-blue-gray-400">{customer.address.address}</p>
+          <p className="text-blue-gray-400">{"customer.address.address"}</p>
         </div>
       </div>
       <p className="text-blue-gray-700">4 pets</p>
@@ -85,24 +94,37 @@ const VetOverviewDateItem = () => {
 };
 
 const VetOverviewCard = () => {
-  const { customers }: CustomersDataContext = useCustomers();
-
-  console.log(users);
-
+  const { customers, pets } = useCustomers();
+  console.log({ pets });
   return (
     <Fragment>
       <VetOverviewLayout title="Pets">
-        {/*{users.map((pet, index) => (*/}
-        {/*  <VetOverviewPetsItem pet={pet} key={index} />*/}
-        {/*))}*/}
+        {pets.slice(0, 3).map((pet, index) => {
+          let parseImage = `data:image/png;base64, ${pet.pet_pic}`;
+          return (
+            <VetOverviewPetsItem
+              pet={pet}
+              key={index}
+              image={parseImage}
+              key={index}
+            />
+          );
+        })}
         <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
           See all pets
         </div>
       </VetOverviewLayout>
       <VetOverviewLayout title="Customers">
-        {users.slice(0, 3).map((customer, index) => (
-          <VetOverviewCustomerItem customer={customer} key={index} />
-        ))}
+        {customers.slice(0, 3).map((customer, index) => {
+          let parseImage = `data:image/png;base64, ${customer.profile_pic}`;
+          return (
+            <VetOverviewCustomerItem
+              customer={customer}
+              key={index}
+              image={parseImage}
+            />
+          );
+        })}
         <div className="flex cursor-pointer items-center justify-between gap-5 rounded-lg px-2 py-1 hover:bg-blue-gray-50">
           See all customers
         </div>

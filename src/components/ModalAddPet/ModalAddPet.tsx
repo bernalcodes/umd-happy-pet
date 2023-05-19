@@ -5,6 +5,8 @@ import { useCustomers } from "@/context/CustomersContext";
 import users from "../../data/users.json" assert { type: "JSON" };
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
+import { useFetch } from "@/hooks/useFetch";
+import { useCustomer } from "@/context/UserContext";
 
 const initialPet: Pet = {
   age: "",
@@ -19,7 +21,9 @@ export default function ModalAddPet(): JSX.Element {
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [search, setSearch] = useState("");
 
+  const { createNewPet } = useFetch();
   const { customers } = useCustomers();
+  const { authData } = useCustomer();
 
   const handleClickCustomer = (customer) => {
     setSelectedCustomer(customer);
@@ -40,17 +44,25 @@ export default function ModalAddPet(): JSX.Element {
       reader.onload = (e: ProgressEvent<FileReader>) => {
         e.preventDefault();
         // @ts-ignore
-        setNewPet({ ...newPet, img: e.target.result });
+        setNewPet({ ...newPet, img: e?.target?.result?.split(",")[1] });
+        console.log(newPet);
       };
     }
   };
 
-  const filteredCustomers = users.filter((user) => {
-    const fullName = `${user.firstName} ${user.lastName}`.toLowerCase();
+  const filteredCustomers = customers.filter((user) => {
+    const fullName = `${user.email}`.toLowerCase();
     return fullName.includes(search.toLowerCase());
   });
 
-  const handleAddPet = (newPet: Pet, idPet: string) => {};
+  const handleAddPet = async (idPet: string) => {
+    const petCreated = await createNewPet(
+      authData.Authorization,
+      newPet,
+      authData.id
+    );
+    console.log({ petCreated });
+  };
 
   const container = {
     hidden: { opacity: 1, scale: 0 },
@@ -83,7 +95,9 @@ export default function ModalAddPet(): JSX.Element {
             <div className="flex gap-3">
               <label
                 htmlFor="imagepet"
-                style={{ backgroundImage: `url(${newPet.img})` }}
+                style={{
+                  backgroundImage: `url("data:image/png;base64, ${newPet.img}")`,
+                }}
                 className={`flex w-32 cursor-pointer items-center justify-center rounded-xl ${
                   newPet.img === ""
                     ? "border-2 border-dashed border-blue-gray-300"
@@ -118,7 +132,7 @@ export default function ModalAddPet(): JSX.Element {
                   <Input label="Breed" name="breed" onChange={handleChange} />
                   <button
                     onClick={() => {
-                      handleAddPet(newPet, uuid());
+                      handleAddPet(uuid());
                     }}
                     disabled={
                       newPet.name === "" ||
@@ -157,7 +171,7 @@ export default function ModalAddPet(): JSX.Element {
                   <div className="flex items-end gap-2">
                     <motion.div variants={item}>
                       <Image
-                        src={selectedCustomer?.image}
+                        src={`data:image/png;base64, ${selectedCustomer?.profile_pic}`}
                         className="h-11 w-11 rounded-xl shadow-md"
                         height={200}
                         width={200}
@@ -165,11 +179,11 @@ export default function ModalAddPet(): JSX.Element {
                       />
                     </motion.div>
                     <motion.h3 variants={item} className="text-2xl font-medium">
-                      {selectedCustomer?.firstName}
+                      {selectedCustomer?.email}
                     </motion.h3>
                   </div>
                   <motion.p variants={item} className="mt-2 text-sm">
-                    {selectedCustomer?.email}
+                    {selectedCustomer?.id}
                   </motion.p>
                 </motion.div>
               ) : (
@@ -204,16 +218,16 @@ export default function ModalAddPet(): JSX.Element {
               >
                 <div className="flex items-center gap-2">
                   <Image
-                    src={customer.image}
+                    src={`data:image/png;base64, ${customer.profile_pic}`}
                     className="h-11 w-11 rounded-xl shadow-md"
                     height={200}
                     width={200}
                     alt="any"
                   />
                   <div className="flex flex-col">
-                    <h2>{customer.firstName}</h2>
+                    <h2>{customer.email}</h2>
                     <div className="text-sm text-blue-gray-400">
-                      {customer.email}
+                      {customer.id}
                     </div>
                   </div>
                 </div>

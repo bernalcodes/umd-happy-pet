@@ -3,6 +3,8 @@ import LoginInterface from "@/interfaces/LoginInterface";
 import { useEffect, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { useFetch } from "@/hooks/useFetch";
+import { useRouter } from "next/router";
+import { useCustomer } from "@/context/UserContext";
 
 export const useLogIn = () => {
   const [form, setForm] = useState<LoginInterface>({
@@ -19,6 +21,9 @@ export const useLogIn = () => {
     reset,
   } = useForm<LoginInterface>();
 
+  const router = useRouter();
+  const { setUser } = useCustomer();
+
   const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setForm((prevState) => ({
@@ -33,7 +38,11 @@ export const useLogIn = () => {
     console.log(data);
     try {
       const loggedUser = await login(data);
-      console.log(loggedUser);
+      if (loggedUser?.success) {
+        console.log(loggedUser?.data);
+        localStorage.setItem(`auth-token`, JSON.stringify(loggedUser?.data));
+        router.push("vet/dashboard");
+      }
     } catch (err) {
       console.log(err);
     }

@@ -5,6 +5,9 @@ import AccordionPetForm from "../AccordionPetForm/AccordionPetForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCircleMinus } from "@fortawesome/free-solid-svg-icons/faCircleMinus";
 import { SubmitHandler, useForm } from "react-hook-form";
+import { useFetch } from "@/hooks/useFetch";
+import { useCustomer } from "@/context/UserContext";
+import { useCustomers } from "@/context/CustomersContext";
 
 const initialCustomer: Customer = {
   address: "",
@@ -24,6 +27,9 @@ export default function ModalAddCustomer(): JSX.Element {
     handleSubmit,
     formState: { errors },
   } = useForm<Customer>();
+
+  const { vetAddCustomer, createUser } = useFetch();
+  const { handleRefreshUsers } = useCustomers();
 
   const handleOpen = (value: number): void => {
     setOpenAccordion(openAccordion === value ? 0 : value);
@@ -53,8 +59,17 @@ export default function ModalAddCustomer(): JSX.Element {
     setNewCustomer({ ...newCustomer, [e.target.name]: e.target.value });
   };
 
-  const onSubmit: SubmitHandler<Customer> = () => {
-    console.log(newCustomer);
+  const onSubmit: SubmitHandler<Customer> = async () => {
+    console.log({ newCustomer });
+    // @ts-ignore
+    const customerCreated = await vetAddCustomer(newCustomer, "CUSTOMER");
+    if (customerCreated?.success) {
+      console.log({ customerCreated });
+      handleRefreshUsers();
+    } else {
+      const error = JSON.parse(customerCreated?.message);
+      console.log(error);
+    }
   };
   return (
     <>
@@ -101,55 +116,54 @@ export default function ModalAddCustomer(): JSX.Element {
                 />
               </div>
             </div>
-
             {/* New pet */}
-            <div className="mt-3 flex flex-col gap-3">
-              <AccordionPetForm
-                id={1}
-                register={register}
-                handleAddPet={handleAddPet}
-                handleOpen={() => handleOpen(1)}
-                open={openAccordion}
-                errors={errors}
-              />
-            </div>
+            {/*<div className="mt-3 flex flex-col gap-3">*/}
+            {/*  <AccordionPetForm*/}
+            {/*    id={1}*/}
+            {/*    register={register}*/}
+            {/*    handleAddPet={handleAddPet}*/}
+            {/*    handleOpen={() => handleOpen(1)}*/}
+            {/*    open={openAccordion}*/}
+            {/*    errors={errors}*/}
+            {/*  />*/}
+            {/*</div>*/}
           </section>
           <section aria-labelledby="options-heading" className="mt-10">
             <div>
               {/* Pet list */}
-              <div>
-                <h4 className="mb-2 text-lg font-medium text-gray-900">
-                  Pet list
-                </h4>
-                <div className="flex w-full gap-4 overflow-x-auto">
-                  {newCustomer.pet_list.length === 0 && (
-                    <p className="text-gray-500">Add at least one pet</p>
-                  )}
-                  {newCustomer.pet_list.map((pet: Pet, index: number) => (
-                    <div
-                      key={index}
-                      className="flex min-w-fit items-center justify-between gap-2 rounded-full bg-[#aba9f7] p-2"
-                    >
-                      <Avatar
-                        // @ts-ignore
-                        src={pet.img}
-                        variant="circular"
-                        alt="avatar"
-                        size="xs"
-                      />
-                      <p>{pet.name}</p>
-                      <button
-                        onClick={(event) => handleDeletePet(event, pet.id)}
-                      >
-                        <FontAwesomeIcon
-                          icon={faCircleMinus}
-                          className="cursor-pointer text-2xl text-white hover:text-blue-gray-200"
-                        />
-                      </button>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              {/*<div>*/}
+              {/*  <h4 className="mb-2 text-lg font-medium text-gray-900">*/}
+              {/*    Pet list*/}
+              {/*  </h4>*/}
+              {/*  <div className="flex w-full gap-4 overflow-x-auto">*/}
+              {/*    {newCustomer.pet_list.length === 0 && (*/}
+              {/*      <p className="text-gray-500">Add at least one pet</p>*/}
+              {/*    )}*/}
+              {/*    {newCustomer.pet_list.map((pet: Pet, index: number) => (*/}
+              {/*      <div*/}
+              {/*        key={index}*/}
+              {/*        className="flex min-w-fit items-center justify-between gap-2 rounded-full bg-[#aba9f7] p-2"*/}
+              {/*      >*/}
+              {/*        <Avatar*/}
+              {/*          // @ts-ignore*/}
+              {/*          src={pet.img}*/}
+              {/*          variant="circular"*/}
+              {/*          alt="avatar"*/}
+              {/*          size="xs"*/}
+              {/*        />*/}
+              {/*        <p>{pet.name}</p>*/}
+              {/*        <button*/}
+              {/*          onClick={(event) => handleDeletePet(event, pet.id)}*/}
+              {/*        >*/}
+              {/*          <FontAwesomeIcon*/}
+              {/*            icon={faCircleMinus}*/}
+              {/*            className="cursor-pointer text-2xl text-white hover:text-blue-gray-200"*/}
+              {/*          />*/}
+              {/*        </button>*/}
+              {/*      </div>*/}
+              {/*    ))}*/}
+              {/*  </div>*/}
+              {/*</div>*/}
               <button
                 type="submit"
                 className="mt-6 flex w-full items-center justify-center rounded-md border border-transparent bg-happy-color-primary px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2"
