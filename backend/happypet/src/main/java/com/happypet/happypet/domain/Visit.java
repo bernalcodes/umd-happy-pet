@@ -17,36 +17,28 @@ public class Visit extends BaseEntity {
 	private String pet_id;
 
 	@Column(name = "vet_id")
-	@NotEmpty
-	@NotNull
 	private String vet_id;
 
 	@Column(name = "date")
-	@NotEmpty
+	@NotNull
 	private Date date;
 
 	@Column(name = "temperature")
-	@NotEmpty
 	private float temperature;
 
 	@Column(name = "weight")
-	@NotEmpty
 	private float weight;
 
 	@Column(name = "resp_freq")
-	@NotEmpty
 	private String resp_freq;
 
 	@Column(name = "cardiac_freq")
-	@NotEmpty
 	private String cardiac_freq;
 
 	@Column(name = "mood")
-	@NotEmpty
 	private String mood;
 
 	@Column(name = "recommendation")
-	@NotEmpty
 	private String recommendation;
 
 	public String getPet_id() {

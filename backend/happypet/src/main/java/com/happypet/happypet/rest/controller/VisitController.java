@@ -1,5 +1,8 @@
 package com.happypet.happypet.rest.controller;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,9 +40,16 @@ public class VisitController {
 
 	// CREATE Visit
 	@PostMapping("/new")
-	public ResponseEntity<String> createVisit(@RequestBody Visit visit) {
+	public ResponseEntity<String> createVisit(@RequestBody ObjectNode visit) {
 		try {
-			Optional<Visit> createdVisit = visitService.createVisit(visit);
+			Visit newVisit = new Visit();
+			newVisit.setPet_id(visit.get("pet_id").asText());
+			String visitDate = visit.get("date").asText();
+			String parsedVisitDate = visitDate.replace("T", " ");
+			DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+			Date date = formatter.parse(parsedVisitDate);
+			newVisit.setDate(date);
+			Optional<Visit> createdVisit = visitService.createVisit(newVisit);
 			if (createdVisit.isPresent())
 				return new ResponseEntity<>("Visit created successfully", HttpStatus.CREATED);
 		} catch (Exception e) {
