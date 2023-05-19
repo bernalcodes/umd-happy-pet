@@ -196,7 +196,7 @@ export const useFetch = () => {
   const createDate = async (authToken: string, data: {}) => {
     try {
       const body = JSON.stringify({
-        pet_id: data?.owner_id,
+        pet_id: data?.id_pet,
         date: data?.date,
       });
 
@@ -207,6 +207,22 @@ export const useFetch = () => {
         headers: getHeaders(authToken),
       });
 
+      const dataRes = await res.text();
+      if (!res.ok) {
+        throw new Error(JSON.stringify({ status: res.status, json: dataRes }));
+      }
+      return { success: true, data: dataRes };
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  const getAllVisits = async (authToken: string) => {
+    try {
+      const res = await fetch(`${BASE_URL}/visits/all`, {
+        method: "GET",
+        headers: getHeaders(authToken),
+      });
       const dataRes = await res.json();
       if (!res.ok) {
         throw new Error(JSON.stringify({ status: res.status, json: dataRes }));
@@ -226,5 +242,6 @@ export const useFetch = () => {
     createNewPet,
     getAllPets,
     createDate,
+	getAllVisits,
   };
 };

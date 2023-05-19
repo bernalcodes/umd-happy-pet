@@ -1,3 +1,4 @@
+import { useCustomers } from "@/context/CustomersContext";
 import {
   IconDefinition,
   faBook,
@@ -41,38 +42,35 @@ const VetOrverviewItem = ({
   );
 };
 
-const data: VetOrverviewItemProps[] = [
-  {
-    label: "Customers",
-    count: 12,
-    color: "text-happy-pink",
-    bgColor: "bg-happy-light-pink",
-    icon: faUser,
-  },
-  {
-    label: "Pets",
-    count: 15,
-    color: "text-happy-orange",
-    bgColor: "bg-happy-light-orange",
-    icon: faPaw,
-  },
-  {
-    label: "Reports",
-    count: 6,
-    color: "text-happy-green",
-    bgColor: "bg-happy-light-green",
-    icon: faBook,
-  },
-  {
-    label: "Appointments",
-    count: 10,
-    color: "text-happy-blue",
-    bgColor: "bg-happy-light-blue",
-    icon: faCalendarCheck,
-  },
-];
+
 
 const VetOverview = () => {
+	const {customers, pets, visits} = useCustomers();
+
+	const data: VetOrverviewItemProps[] = [
+		{
+		  label: "Customers",
+		  count: customers?.length,
+		  color: "text-happy-pink",
+		  bgColor: "bg-happy-light-pink",
+		  icon: faUser,
+		},
+		{
+		  label: "Pets",
+		  count: pets?.length,
+		  color: "text-happy-orange",
+		  bgColor: "bg-happy-light-orange",
+		  icon: faPaw,
+		},
+		{
+		  label: "Appointments",
+		  count: visits?.length,
+		  color: "text-happy-blue",
+		  bgColor: "bg-happy-light-blue",
+		  icon: faCalendarCheck,
+		},
+	  ];
+
   return (
     <div className="m-auto flex max-w-screen-xl flex-col flex-wrap justify-around gap-5 rounded-xl px-8 py-8 lg:flex-row">
       {data.map((item, index) => (

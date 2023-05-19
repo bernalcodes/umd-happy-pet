@@ -17,7 +17,7 @@ export const ModalCreateDate = () => {
   const [selectedPet, setSelectedPet] = useState(null);
   const [date, setDate] = useState("");
 
-  const { customers, pets } = useCustomers();
+  const { customers, pets, handleRefreshUsers } = useCustomers();
   const { authData } = useCustomer();
   const { user } = useCustomer();
   const { createDate } = useFetch();
@@ -27,12 +27,12 @@ export const ModalCreateDate = () => {
   };
 
   const filteredCustomers = customers.filter((user) => {
-    const fullName = `${user.email}`.toLowerCase();
+    const fullName = `${user.personDetails.name}`.toLowerCase();
     return fullName.includes(search.toLowerCase());
   });
 
   const handleClickCustomer = (customer) => {
-    const petsFilter = pets.filter((pet) => pet.owner_id === customer.id);
+    const petsFilter = pets.filter((pet) => pet.owner_id === customer.personDetails.id);
     setPetsPerCustomer(petsFilter);
     console.log(customer);
     setSelectedCustomer(customer);
@@ -47,7 +47,9 @@ export const ModalCreateDate = () => {
         id_pet: selectedPet?.id,
         date: date,
       });
+	  setDateCreated(true);
       console.log({ visitCreated });
+	  handleRefreshUsers();
     } catch (err) {
       console.log(err);
     } finally {
@@ -89,14 +91,14 @@ export const ModalCreateDate = () => {
           <div className="flex gap-2">
             <div className="flex flex-col">
               <Image
-                src={`data:image/png;base64, ${selectedCustomer?.profile_pic}`}
+                src={`data:image/png;base64, ${selectedCustomer?.userDetails.profile_pic}`}
                 className="h-9 w-9 rounded-xl shadow-md"
                 height={200}
                 width={200}
                 alt="any"
               />
             </div>
-            <h3 className="text-lg font-bold">{selectedCustomer?.email}</h3>
+            <h3 className="text-lg font-bold">{selectedCustomer?.personDetails.name}</h3>
           </div>
           <div className="flex flex-wrap gap-2">
             {petsPerCustomer.map((pet, index) => (
@@ -135,16 +137,16 @@ export const ModalCreateDate = () => {
           >
             <div className="flex items-center gap-2">
               <Image
-                src={`data:image/png;base64, ${customer.profile_pic}`}
+                src={`data:image/png;base64, ${customer.userDetails.profile_pic}`}
                 className="h-11 w-11 rounded-xl shadow-md"
                 height={200}
                 width={200}
                 alt="any"
               />
               <div className="flex flex-col">
-                <h2>{customer.firstName}</h2>
+                <h2>{customer.personDetails.name}</h2>
                 <div className="text-sm text-blue-gray-400">
-                  {customer.email}
+                  {customer.userDetails.email}
                 </div>
               </div>
             </div>
