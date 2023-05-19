@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -90,8 +89,7 @@ public class VeterinaryController {
 				ObjectNode vetNode = mapper.valueToTree(veterinary);
 				vetNodeList.add(vetNode);
 			}
-			JsonNode response = mapper.createObjectNode().set("vetList", vetNodeList);
-			return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+			return new ResponseEntity<>(vetNodeList.toString(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
 			e.printStackTrace();

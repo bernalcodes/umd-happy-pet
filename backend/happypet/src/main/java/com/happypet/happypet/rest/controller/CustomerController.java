@@ -1,5 +1,6 @@
 package com.happypet.happypet.rest.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,7 +19,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
@@ -102,15 +102,22 @@ public class CustomerController {
 
 			for (Customer customer : customerList) {
 				ObjectNode customerNode = mapper.valueToTree(customer);
-				List<Pet> petList = petService.findPetsByOwnerId(customer.getId());
-				if (!petList.isEmpty()) {
-					ArrayNode petListNode = mapper.valueToTree(petList);
-					customerNode.set("petList", petListNode);
+				List<Pet> petList = new ArrayList<>();
+				try {
+					petList = petService.findPetsByOwnerId(customer.getId());
+					if (!petList.isEmpty()) {
+						ArrayNode petListNode = mapper.valueToTree(petList);
+						customerNode.set("petList", petListNode);
+					} else {
+						customerNode.set("petList", mapper.createArrayNode());
+					}
+				} catch (Exception e) {
+					logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
+					e.printStackTrace();
 				}
 				customerNodeList.add(customerNode);
 			}
-			JsonNode response = mapper.createObjectNode().set("customerList", customerNodeList);
-			return new ResponseEntity<>(response.toString(), HttpStatus.OK);
+			return new ResponseEntity<>(customerNodeList.toString(), HttpStatus.OK);
 		} catch (Exception e) {
 			logger.info("ERROR [{}] - {}", e.getClass().getSimpleName(), e.getMessage());
 			e.printStackTrace();
