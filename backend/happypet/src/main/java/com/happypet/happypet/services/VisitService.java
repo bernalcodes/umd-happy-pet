@@ -37,7 +37,7 @@ public class VisitService {
 	// READ Visit by pet ID and vet ID and date
 	public Optional<Visit> readVisitByPetIdAndVetIdAndDate(String petId, String vetId, String dateStr)
 			throws Exception {
-		DateFormat formatter = new SimpleDateFormat("dd-MMM-yy HH:mm:ss");
+		DateFormat formatter = new SimpleDateFormat("dd-MMM-yyHH:mm:ss");
 		Date date = formatter.parse(dateStr);
 		Optional<Visit> v = visitRepository.findByPetIdAndVetIdAndDate(petId, vetId, date);
 		if (v.isPresent())
